@@ -1,0 +1,17 @@
+Service "NovaPay 1.0"
+for WhiteLion 1.0
+
+Author: Ostap Matskiv
+Date 1.0   : 25.11.2020
+
+Description: Сервіс оплати Visa/Mastercard через NovaPay - платіжний шлюз Нова Пошта
+Options:
+	merchant_id 							#мерчант продавця (merchant_id)
+	privatePassphrase 						Пароль захисту private rsa key (якщо є)
+	testPay 								Тестовий платіж
+	id_option_weight 						id властивості "Фактична вага" у shopshowcase
+	id_option_volume_weight 				id властивості "Об'ємна вага" у shopshowcase
+	successPayStatusToCart 	(hidden => number) 	Статус замовлення у корзині після успішної оплати
+
+Versions:
+	1.0 	На основі сервісу LiqPay 1.0

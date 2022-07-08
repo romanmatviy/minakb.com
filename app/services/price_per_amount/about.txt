@@ -1,0 +1,33 @@
+Service "Shop product price per amount 1.1"
+for WhiteLion 1.0
+
+Author: Ostap Matskiv
+Date 1.1   : 21.10.2018
+Date 1.0   : 20.08.2018
+
+Description: Маркетинговий модуль для shopshopcase i cart. Встановлює можливість давати декілька цін. Зміни ціни від кількості
+Options:
+	markUpByUserTypes	(0, 1)		Націнка відносно рівня користувача
+
+Path photos after uploading:
+	not use
+
+SEO not use
+
+Tables:
+	s_ppa		ціна товару відносно кількості
+		`id` int(11) NOT NULL AUTO_INCREMENT,
+			  `product_alias` int(11),
+			  `product_id` int(11),
+			  `price` TEXT NULL 	serialize price array [int $from => float $price]
+
+Public links:
+	/index() - page_404
+	/__get_Search()				повертає об'єкт пошуку: return false
+	/__get_Product()			повертає інформацію по одному товару
+	/__get_Products()			вся інформація по пропозиції
+
+
+Versions:
+	1.0 	Основа сервісу
+	1.1		Додано групове отримання інформації. Оптимізовано під експорт

@@ -1,0 +1,35 @@
+Service "Currency 2.3"
+for WhiteLion 1.3
+
+Author: Ostap Matskiv
+Date 2.3   : 19.06.2020
+Date 2.2   : 05.03.2020
+Date 2.1   : 16.12.2019
+Date 2.0   : 07.07.2019
+Date 1.0   : 01.04.2016
+
+Description: Курс валют з автоматичним оновленням через API Privat24
+Global: $_SESSION['currency'][$code] => $value
+Options:
+	autoUpdate		(bool)		Автоматично оновлювати через privat24
+	saveToHistory	(bool)		Зберігати історію
+
+Public links:
+	/index			запускає __set_Currency => Курс валют оновлено за запитом
+	/__get_Search	повертає об'єкт пошуку - завжди false
+	/__get_Currency($code) повертає коефіціент для валюти
+	/__set_Currency встановлює $_SESSION['currency'][*] для всіх валют
+	/__page_before_init 	при завантеженні сторінки (ініціалізація сайту) запускає __set_Currency
+
+Private links (admin access):
+	/index
+	/add
+	/history
+	/updatePrivat24
+
+Versions:
+	1.0 	Основа сервісу
+	2.0		Встановлено курс по замовчуванню. Додано $_SESSION['currency'], __page_before_init()
+	2.1		Оптимізовано __page_before_init
+	2.2 	Add __clear_cache(), admin ui optimize
+	2.3		Підтримка файлового кешу для WhiteLion 1.3+

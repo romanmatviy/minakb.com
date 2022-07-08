@@ -1,0 +1,139 @@
+.groups {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 50px 0 100px;
+}
+.groups > figure.empty { height: 0 !important; min-height: 0 }
+.groups > figure {
+	width: calc(33% - 10px);
+	display: block;
+	position: relative;
+    max-height: 360px;
+    min-height: 180px;
+	background: #888;
+	margin-bottom: 20px;
+	overflow: hidden
+}
+@media screen and (max-width: 600px) {
+	.groups > figure { width: 100%; margin-bottom: 15px; }
+}
+
+.groups figure figcaption {
+	padding: 2em;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 1.25em;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+.groups figure figcaption::before,
+.groups figure figcaption::after {
+	pointer-events: none;
+}
+
+.groups figure figcaption,
+.groups figure figcaption > a {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+/* Anchor will cover the whole item by default */
+/* For some effects it will show as a button */
+.groups figure figcaption > a {
+	z-index: 1000;
+	text-indent: 200%;
+	white-space: nowrap;
+	font-size: 0;
+	opacity: 0;
+}
+
+.groups figure h2 span {
+	font-weight: 800;
+}
+
+.groups figure h2,
+.groups figure p {
+	margin: 0;
+	text-align: center;
+}
+
+.groups > figure img {
+    position: relative;
+    display: block;
+    min-height: 100%;
+    max-width: 100%;
+	opacity: 0.7;
+	-webkit-transition: opacity 0.35s;
+	transition: opacity 0.35s;
+}
+
+.groups > figure:hover img {
+	opacity: 0.4;
+}
+
+.groups > figure figcaption::before,
+.groups > figure figcaption::after {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	bottom: 30px;
+	left: 30px;
+	content: '';
+	opacity: 0;
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+}
+
+.groups > figure figcaption::before {
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	-webkit-transform: scale(0,1);
+	transform: scale(0,1);
+}
+
+.groups > figure figcaption::after {
+	border-right: 1px solid #fff;
+	border-left: 1px solid #fff;
+	-webkit-transform: scale(1,0);
+	transform: scale(1,0);
+}
+
+.groups > figure h2 {
+	padding-top: 30%;
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
+	-webkit-transform: translate3d(0,-20px,0);
+	transform: translate3d(0,-20px,0);
+}
+
+.groups > figure p {
+	padding: 20px 2.5em;
+	opacity: 0;
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+	-webkit-transform: translate3d(0,20px,0);
+	transform: translate3d(0,20px,0);
+}
+
+.groups > figure:hover figcaption::before,
+.groups > figure:hover figcaption::after {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+
+.groups > figure:hover h2,
+.groups > figure:hover p {
+	opacity: 1;
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}

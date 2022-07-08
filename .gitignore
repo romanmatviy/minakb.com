@@ -1,0 +1,13 @@
+/images/*/
+audio/
+files/
+upload/
+_install/
+/import/
+/cache/
+/*.sql
+*.zip
+*.xml
+*.gz
+robots.txt
+vendor/

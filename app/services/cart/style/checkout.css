@@ -1,0 +1,126 @@
+#cart-checkout .w30 label { display: block; padding: 5px; }
+#cart-checkout .w30 input[type=radio] {
+    width: 10px;
+}
+#cart-checkout > a.pull-right {
+    background: #7cbe49;
+    color: #fff;
+    padding: 5px 30px;
+    border-radius: 2px;
+    margin-bottom: 25px
+}
+#cart-checkout h4, #cart-checkout .price-box { margin-top: 15px }
+#cart_notify * { font-size: 16px; line-height: 20px }
+#percents {
+    background: #DCDCDC;
+    border-radius: 2px;
+    position: relative;
+    height: 27px
+}
+#percents .active, #percents .text {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 75%;
+    background: #74C186
+}
+#percents .text {
+    background: none;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px
+}
+#percents + .info {
+    font-size: 12px;
+    padding: 2px;
+    width: 200px;
+    background: #F5F5F5;
+    margin: auto;
+    text-align: center;
+    position: relative;
+}
+#percents + .info:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -12px;
+    height: 100%;
+    width: 13px;
+    background-image: url(before-triangle-info-up.svg);
+}
+#percents + .info:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -12px;
+    height: 100%;
+    width: 13px;
+    background-image: url(after-triangle-info-up.svg);
+    background-repeat: no-repeat;
+}
+
+#cart-signup { border: 2px solid #7cbe49; border-radius: 2px }
+#cart-signup div { padding: 5px; text-align: center; cursor: pointer }
+#cart-signup div.active { background: #7cbe49; color: #fff }
+#cart-signup div:hover { text-decoration: underline }
+#buyer { margin: 15px 0 }
+
+#cart-checkout #oferta {
+    display: block;
+    margin-top: 5px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 2px;
+    background: #ddd
+}
+#payments label { display: block }
+#payments .payment-info { padding-bottom: 5px }
+#cart-checkout form#confirm input.hide,
+#cart-checkout #oferta input { display: none }
+
+#cart-checkout textarea, #cart-checkout select { width: 100% }
+#cart-checkout #oferta { padding-left: 0; background: none; text-align: left }
+#cart-checkout #oferta i { font-size: 16px; color: #7cbe49; margin-top: 5px; margin-right: 10px; float: left }
+#cart-checkout #oferta div { margin-top: 5px }
+#cart-checkout #oferta a { display: inline; text-decoration: underline }
+@media(max-width: 1023px){#cart-checkout .price-box { position: inherit !important; margin-bottom: 15px }}
+@media(max-width: 767px){ #cart-checkout > a.right { width: 100%; text-align: center } }
+
+
+@-webkit-keyframes grow
+{
+    0%{-webkit-transform:scale(1);}
+    50%{-webkit-transform:scale(1.5);}
+    100%{-webkit-transform:scale(1);}
+}
+@-moz-keyframes grow
+{
+    0%{-moz-transform:scale(1);}
+    50%{-moz-transform:scale(1.5);}
+    100%{-moz-transform:scale(1);}
+}
+@-ms-keyframes grow
+{
+    0%{-ms-transform:scale(1);}
+    50%{-ms-transform:scale(1.5);}
+    100%{-ms-transform:scale(1);}
+}
+#cart-checkout #oferta i.far.fa-square {
+    color: #f52323;
+    -webkit-animation-name: grow;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: grow;
+    -moz-animation-duration: 3s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: grow;
+    -ms-animation-duration: 3s;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+}

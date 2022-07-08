@@ -1,0 +1,24 @@
+Service "PayPal 1.0"
+for WhiteLion 1.0
+
+Author: Ostap Matskiv
+Date 1.0   : 04.06.2017
+
+Description: Сервіс оплати Visa/Mastercard через PayPal
+Options:
+	receiverEmail	(text)		ID/email отримувача платежу (на нього зареєстровано paypal акаунт)
+	currency_code	(text)		Код валюти (3 символи)
+	testPay			(bool)		Тестовий платіж
+
+Public links:
+	/index			page 404
+	/validate/id 	прийом відповіді від серверу банку
+	/__get_Search	повертає об'єкт пошуку - завжди false
+	/__get_Payment 	створює квитанцію та виводить форму для оплати
+
+Private links (admin access):
+	/index		перелік всіх квитанцій (нові згори)
+	/index/id 	перегляд квитанції детально
+
+Versions:
+	1.0 	На основі сервісу LiqPay 1.0

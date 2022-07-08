@@ -1,0 +1,106 @@
+<script>
+dataLayer = [{
+    'transactionId': '{cart.id}',
+    'transactionAffiliation': '{SITE_NAME}',
+    'transactionTotal': '{cart.total}',
+    'transactionTax': '0',
+    'transactionShipping': '0',
+    'transactionProducts': [{{$transactionProducts}}]
+}];
+</script>
+
+
+
+Array
+(
+    [{cart.user}] => 1
+    [{cart.status}] => 1
+    [{cart.shipping_id}] => 4
+    [{cart.shipping_info}] => a:9:{s:6:"method";s:9:"warehouse";s:4:"city";s:42:"м. Львів, Львівська обл.";s:10:"department";s:81:"Відділення №23 (до 30 кг): вул. Симона Петлюри, 2";s:8:"city_ref";s:36:"db5c88f5-391c-11dd-90d9-001a92567626";s:13:"warehouse_ref";s:36:"612eccd8-0bf3-11e4-acce-0050568002cf";s:13:"recipientName";s:13:"Ostap Matskiv";s:14:"recipientPhone";s:12:"380673141471";s:3:"pay";N;s:5:"price";N;}
+    [{cart.discount}] => 0
+    [{cart.bonus}] => 0
+    [{cart.payment_id}] => 2
+    [{cart.payment_alias}] => 0
+    [{cart.total}] => 522.656
+    [{cart.comment}] => 
+    [{cart.date_edit}] => 1580301630
+    [{cart.date_add}] => 1580301630
+    [{cart.id}] => 1654
+    [{cart.date}] => 29.01.2020 14:40
+    [{cart.user_name}] => Ostap Matskiv
+    [{cart.user_email}] => developer@webspirit.com.ua
+    [{cart.user_phone}] => +38 (067) 314-14-71
+    [{cart.new_user}] => 
+    [{cart.link}] => http://dinmark.localhost/cart/1654
+    [{cart.admin_link}] => http://dinmark.localhost/admin/cart/1654
+    [{cart.total_formatted}] => 522,66 грн
+    [{cart.sum_formatted}] => 522,66 грн
+    [{cart.products.0.cart}] => 0
+    [{cart.products.0.user}] => 1
+    [{cart.products.0.active}] => 1
+    [{cart.products.0.product_alias}] => 8
+    [{cart.products.0.product_id}] => 21432
+    [{cart.products.0.product_options}] => 
+    [{cart.products.0.storage_alias}] => 0
+    [{cart.products.0.storage_invoice}] => 0
+    [{cart.products.0.price}] => 0.9689
+    [{cart.products.0.price_in}] => 10.14
+    [{cart.products.0.quantity}] => 250
+    [{cart.products.0.quantity_wont}] => 250
+    [{cart.products.0.quantity_returned}] => 0
+    [{cart.products.0.discount}] => 0
+    [{cart.products.0.bonus}] => 0
+    [{cart.products.0.date}] => 1579626997
+    [{cart.products.0.key}] => 11575
+    [{cart.products.0.price_format}] => 96,89 грн
+    [{cart.products.0.sum_format}] => 242,23 грн
+    [{cart.products.1.cart}] => 0
+    [{cart.products.1.user}] => 1
+    [{cart.products.1.active}] => 1
+    [{cart.products.1.product_alias}] => 8
+    [{cart.products.1.product_id}] => 22154
+    [{cart.products.1.product_options}] => 
+    [{cart.products.1.storage_alias}] => 0
+    [{cart.products.1.storage_invoice}] => 0
+    [{cart.products.1.price}] => 9.3477
+    [{cart.products.1.price_in}] => 97.83
+    [{cart.products.1.quantity}] => 30
+    [{cart.products.1.quantity_wont}] => 30
+    [{cart.products.1.quantity_returned}] => 0
+    [{cart.products.1.discount}] => 0
+    [{cart.products.1.bonus}] => 0
+    [{cart.products.1.date}] => 1579706909
+    [{cart.products.1.key}] => 11576
+    [{cart.products.1.price_format}] => 934,77 грн
+    [{cart.products.1.sum_format}] => 280,43 грн
+    [{cart.delivery}] => Нова пошта На відділення
+м. Львів, Львівська обл.
+Відділення №23 (до 30 кг): вул. Симона Петлюри, 2
+
+Отримувач: Ostap Matskiv, +38 (067) 314-14-71
+    [{cart.payment.id}] => 2
+    [{cart.payment.id_1c}] => cashless
+    [{cart.payment.wl_alias}] => 0
+    [{cart.payment.active}] => 1
+    [{cart.payment.position}] => 2
+    [{cart.payment.name}] => Оплатити на рахунок за реквізитами
+    [{cart.payment.info}] => Реквізити оплати отримаєте листом на електронну скриньку
+    [{cart.payment.alias}] => 
+    [{{$transactionProducts}}] => {
+                                        'sku': '934-10-1,25-10',
+                                        'name': 'Гайка DIN 934 M10x1,25 10',
+                                        'category': 'DIN 934 10 Гайка шестигранна з дрібним кроком',
+                                        'price': '0.9689',
+                                        'quantity': '250'
+                                    },{
+                                        'sku': '980-18-1,5-10ц',
+                                        'name': 'Гайка DIN 980 M18x1,5 10 цинк',
+                                        'category': 'DIN 980 10 цинк Гайка самоконтряща з дрібним кроком',
+                                        'price': '9.3477',
+                                        'quantity': '30'
+                                    }
+    [{name}] => Корзина. Дякуємо за замовлення
+    [{SITE_NAME}] => dinmark.localhost
+    [{SITE_URL}] => http://dinmark.localhost/
+    [{IMG_PATH}] => http://dinmark.localhost/images/
+)

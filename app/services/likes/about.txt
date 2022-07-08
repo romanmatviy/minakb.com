@@ -1,0 +1,27 @@
+Service "Likes 1.0"
+for WhiteLion 1.0
+
+Author: Ostap Matskiv
+Date 1.0 : 12.01.2018
+
+Description: Вподобайки
+
+Need to work: jquery-1.8.3.js+
+
+views/@_in_page.php - php код для вставки на сторінку де буде ініціація лайку
+
+Public links:
+	/index() - show user like pages
+	/setLike - set/update like to page by id alias and content
+	/__show_Like_Btn - show and init like button on page
+	/login - login to site from like widget
+	/signup - signup to site from like widget
+	/__get_Search()	- return false
+
+Admin links:
+	/index() - all users likes
+	/__tab_profile - tab to admin profile detal page
+	/__get_Search() - return false
+
+Versions:
+	1.0 	Основа модулю, включно із ajax збереженням даних, facebook логінацією

@@ -1,0 +1,25 @@
+Service "Compare 1.0"
+for WhiteLion 1.1
+
+Author: Ostap Matskiv
+Date 1.0 : 22.01.2020
+
+Description: Порівняння товарів
+
+Need to work: jquery-1.8.3.js+
+
+Public links:
+	/index() - show user compare page
+	/getItems - ajax. return id, alias, content compare elements
+	/getGroups - ajax. return groups compare elements
+	/add - add page by id alias and content to compare
+	/cancel - cancel page by id
+	/__get_Search()	- return false
+
+Admin links:
+	/index() - all users compares
+	/__tab_profile - tab to admin profile detal page
+	/__get_Search() - return false
+
+Versions:
+	1.0 	Основа модулю, включно із ajax збереженням даних

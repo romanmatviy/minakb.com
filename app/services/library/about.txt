@@ -1,0 +1,151 @@
+﻿Service "Library 2.7.1"
+for WhiteLion 1.0
+
+Author: Ostap Matskiv
+Date 2.7.1 : 31.08.2019
+Date 2.7   : 21.12.2016
+Date 2.6   : 12.10.2016
+Date 2.5   : 15.09.2016
+Date 2.4   : 18.03.2015
+Date 2.3   : 05.12.2015
+Date 2.2   : 01.12.2015
+Date 2.1   : 18.11.2015
+Date 2.0   : 12.11.2015
+Date 1.0   : 15.05.2014
+
+Description: Бібліотека статей із підтримкою категорій. Мультимовна. Автовиправлення адрес (лінків) товарів.
+Options:
+	useGroups		(0, 1)		наявність категорій в яких можуть знаходитися товари
+	articleMultiGroup	(0, 1) 	один товар більше ніж в одній категорії
+	articleUseOptions	(0, 1) 	наявність властивостей статті
+	folder			(текст)		назва папки у IMG_PATH, куди будуть заливатися фото, створюватися альбоми
+	articleOrder	(текст)		сортування статей
+	groupOrder		(текст)		сортування груп
+
+Path photos after uploading:
+	IMG_PATH / folder / id_article / (*) photo_name . *
+	IMG_PATH / folder / -id_group / (*) id_group . *
+
+SEO (name, title, keywords, description) for albums use wl_ntkd (content: id_article, content: -id_group)
+
+Tables:
+	s_library_articles			перелік товарів
+		`id` int(11) AUTO_INCREMENT,
+		`alias` text,		кінцева адреса товару (включно з ід товару)
+		`group` int(11)		ід групи товару
+		`price` int(11)		ціна товару
+		`position` int(11)	позиція у списку
+		`photo` text,		назва головного фото (для списку)
+		`active` tinyint(1),поточний стан товару (0 - відключено, 1 - активний)
+		`user` int(11),		хто додав
+		`date_add` int(11)		дата додачі (The Unix Epoch)
+		`date_edit` int(11)	дата останнього редагування (The Unix Epoch)
+
+	if options['useGroups'] > 0
+	s_library_groups 			перелік груп товарів
+		`id` int(11) AUTO_INCREMENT,
+		`alias` text,		кінцева адреса групи
+		`parent` int(11)	батьківська група
+		`position` int(11)	позиція групи
+		`photo` int(11),	наявність фото: 0 - ні, ід - номер фото
+		`active` tinyint(1),поточний стан (0 - відключено, 1 - активний)
+		`user` int(11),		хто додав
+		`date` int(11)		дата додачі (The Unix Epoch)
+
+	if options['articleMultiGroup'] > 0
+	s_library_article_group 	для МУЛЬТИТОВАРГРУПА. Один товар - декілька груп
+		`article` int(11)	ід товару
+		`group` int(11)		ід групи
+
+	if options['articleUseOptions'] > 0
+		s_library_options перелік опцій, що доступні для товарів. Присвоюються групам із успадкуванням
+			`id` int(11) AUTO_INCREMENT
+			`wl_alias` int(11)	ід головного аліасу
+			`group` int(11)		ід батьківської групи
+			`alias` int(11)		адреса опції (для СЕО фільтра)
+			`position` text		позиція у списку
+			`type` int(11)		тип опції згідно wl_input_types
+			`filter` tinyint(1)	чи є даний елемент опції і елементом фільтру (тільки для строго визначений елементів: radio, select..)
+			`active` tinyint(1)	поточний стан (0 - відключено, 1 - активний)
+		s_library_article_options 	поточні дані опція товару - товар
+			`id` int(11) AUTO_INCREMENT
+			`product` int(11)	ід товару
+			`option` int(11)	ід опціїї
+			`language` varchar(2),	мова, якщо є мультимовний
+			`value` text		значення
+		s_library_options_name		дані пареметрів товару
+			`id` int(11) AUTO_INCREMENT
+			`option` int(11)	ід опції або -ід властивості опції
+			`language` varchar(2)	мова, якщо є мультимовний
+			`name` text			назва опції/параметру
+			`sufix` text		суфікс (автоматично додається після тексту опції - розмірність величини)
+
+Public links:
+	/index() - main page, list of active groups or articles sorted by `position`
+	/index()/../id - link - detal info about article
+	/__get_Search()				повертає об'єкт пошуку
+	/__get_Articles()			виводить список активних товарів
+	/__get_Groups()				повертає список активних груп
+
+
+
+Private links (admin access):
+	/index() - manage of article or group
+	/all - list of all articles sorted by `position`
+	/add - form add article
+	/edit($id) (private) - form edit article by id article
+	/groups - list all groups
+	/add_group - form to add new group
+	/edit_group(id) (private) - form to edit group
+	/photo_add - upload and add_save photo
+	/photo_save - save title, main_photo info
+	/photo_delete - delete photo
+
+	/save - procedure to save or creating new article
+	/delete - procedure to delete article
+	/changeposition - procedure to change article position in list
+	/changeGroup (ajax) - procedure to set new article group
+	/save_group - procedure to save or creating new group
+	/delete_group - procedure to delete group (+ with articles)
+	/change_group_position - procedure to change group position in list
+	/savephoto (private) - function which save and make resize photo
+	/deleteArticlesByGroup (private) - from DELETE_GROUP() to delete all articles by group and subgroups
+
+
+Versions:
+	1.0 	Розробка сервісу library 1.0.
+
+	2.0		Основу сервісу взято із сервісу ShopShowCase 2.0.
+
+	2.1		Додано адреси мініатюр зображень то статей згідно wl_images_sizes. Формат $article->(*prefix)_photo.
+			Виправлено помилку із пошуком.
+			Змінено порядок сортування статей. Нові згори.
+
+	2.2		До налаштувань сервісу додано idExplodeLink (символ) - розділювач між id та продовженням адреси статті ('-').
+			Додано адреси мініатюр зображень то груп згідно wl_images_sizes. Формат $group->(*prefix)_photo.
+			Виправлено помилку коли головний аліас складається більше однієї частини.
+			Змінено порядок вкладок при редагуванні статті на текст по замовчуванню.
+
+	2.3		Виправлення у панелі керування відносно одномовної версії сайту.
+			Виправлено паддінгацію.
+			Додано повні адреси фотографій статті до списку і детально.
+			Додано відео до списку статтей.
+
+	2.4		Змінено струкруту таблиць (всі магазини в одну таблицю по розділювачу wl_alias за принципом wl_ntkd)
+			Оновлено роботу з адресацією лінка
+			Додано хлібні крихти через $_SESSION['alias']->breadcrumbs
+			Виправлено помилки із групою детально (додано вигрузку підгрупи, формування лінка, фотографій)
+			Додано вивід відео у тексті за номером відео {video-XXX}
+			Керування відео передано на системну верстку
+
+	2.5		Сервіс адаптовано до WL1.0. Оновлено інсталяційну модель, керування контентом переведоно до системних бібліотек.
+
+	2.6		Додано можливість додаткового налаштування статті (за основу взято options із сервісу Shop Showcase 2.3)
+
+	2.7		Додано керування SiteMap (Автовідслідковування товару при редагування SiteMap, Cache)
+			Додано стандартний вивід у макетах
+			Виправлено помилки редагування статті (не відслідковувалася позиція)
+			Вивід товарів тільки при активній групі
+			Каскадне оновлення SiteMap, Cache при редагуванні групи
+
+	2.7.1		Виправлено __get_Groups(), position при додачі групи/статті

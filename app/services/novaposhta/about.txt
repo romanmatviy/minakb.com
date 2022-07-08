@@ -1,0 +1,27 @@
+Service "NovaPoshta.ua 1.2"
+for WhiteLion 1.0
+
+Author: Ostap Matskiv
+Date 1.2   : 21.10.2020
+Date 1.1   : 16.10.2019
+Date 1.0   : 27.06.2018
+
+Description: Доставка NovaPoshta.ua для сервісу cart
+Options:
+	api_key => API ключ для синхронізації з сервісами Нової пошти
+	minTotalMaxWeightAllowed => Мінімальна вантажопідйомність відділення (у кг)
+
+Public links:
+	/index			page 404
+	/__get_Search	повертає об'єкт пошуку - завжди false
+
+Private links (admin access):
+	/index		перелік всіх квитанцій (нові згори)
+	/index/id 	перегляд квитанції детально
+
+Versions:
+	1.0 	Основа сервісу
+	1.1 	Синхронізація відділень по АПІ.
+			Додано доставку кур'єром
+	1.2		minTotalMaxWeightAllowed => Мінімальна вантажопідйомність відділення (у кг)
+			Виправлено autocomplete

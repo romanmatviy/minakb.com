@@ -1,0 +1,28 @@
+Service "Privat24 1.1"
+for WhiteLion 1.0
+
+Author: Ostap Matskiv
+Date 1.1   : 20.06.2017
+Date 1.0   : 01.04.2016
+
+Description: Сервіс оплати через Privat24
+Options:
+	merchant	(text)		ID мерчанта у Privat24
+	password	(text)		Пароль мерчанта у Privat24
+	useMarkUp	(bool)		Використовувати націнку. Комісію оплачує клієнт (націнено на ціну квитанції - незаконно!)
+	markUp		(number)	Націнка у %
+
+Public links:
+	/index			page 404
+	/validate/id 	прийом відповіді від серверу банку
+	/__get_Search	повертає об'єкт пошуку - завжди false
+	/__get_Payment 	створює квитанцію та виводить форму для оплати
+
+Private links (admin access):
+	/index		перелік всіх квитанцій (нові згори)
+	/index/id 	перегляд квитанції детально
+
+Versions:
+	1.0 	Основа сервісу
+	1.1 	Оновлено інсталяційну модель (автопідключення до корзини)
+			Змінено режим підключення до корзини

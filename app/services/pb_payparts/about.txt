@@ -1,0 +1,29 @@
+Service "pb_payparts 1.0"
+for WhiteLion 1.2
+
+Author: Ostap Matskiv
+Date 1.0   : 14.10.2020
+
+Description: Сервіс оплати частинами Visa/Mastercard через PrivatBank
+Options:
+	storeId		(text)		ID мерчанта у LiqPay
+	password	(text)		Пароль мерчанта у LiqPay
+	merchantType ['II', 'PP', 'PB', 'IA']
+	useMarkUp	(bool)		Використовувати націнку. Комісію оплачує клієнт (націнено на ціну квитанції - незаконно!)
+	markUp		(number)	Націнка у %
+	successPayStatusToCart 	(hidden => number) 	Статус замовлення у корзині після успішної оплати
+
+Public links:
+	/index			page 404
+	/init
+	/validate/id 	прийом відповіді від серверу банку
+	/__get_Search	повертає об'єкт пошуку - завжди false
+	/__get_Payment 	створює квитанцію та виводить форму для оплати
+
+Private links (admin access):
+	/index		перелік всіх квитанцій (нові згори)
+	/index/id 	перегляд квитанції детально
+	/save_successPayStatusToCart 	зберегти налаштування статусу замовлення
+
+Versions:
+	1.0 	На основі сервісу LiqPay 1.2

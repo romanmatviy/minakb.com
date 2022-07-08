@@ -1,0 +1,81 @@
+﻿Service "Shop Storage 1.2"
+for WhiteLion 1.0
+
+Author: Ostap Matskiv
+Date 1.2   : 11.06.2019
+Date 1.1   : 25.04.2017
+Date 1.0   : 26.02.2016
+
+Description: Склад товарів для shopshopcase i cart 2.3+
+Options:
+	productUseArticle	(0, 1)		Використання товарами зовнішнього артикулу
+	deleteIfZero		(0, 1)		Видаляти прихідні квитанції по закінченню залишків
+	markUpByUserTypes	(0, 1)		Націнка відносно рівня користувача
+
+Path photos after uploading:
+	not use
+
+SEO not use
+
+Tables:
+	shopstorage		склади з налаштуванням
+		`id` int(11) AUTO_INCREMENT співпадає з ід головного аліасу
+		  `name` text
+		  `currency` varchar(3) DEFAULT 'USD',
+		  `updateRows` TEXT
+		  `updateCols` TEXT
+		  `markup` int(11)
+		  `date_add` int(11)
+		  `user_add` int(11)
+		  `active` tinyint(1)
+	shopstorage_products 	перелік опцій, що доступні для товарів. Присвоюються групам із успадкуванням
+		`id` int(11) AUTO_INCREMENT,
+		  `storage` int(11)
+		  `product` int(11)
+		  `price_in` float UNSIGNED
+		  `price_out` float UNSIGNED
+		  `currency_in` tinyint(2)
+		  `currency_out` tinyint(2)
+		  `amount` int(11)
+		  `amount_reserved` int(11)
+		  `date_in` int(11)
+		  `date_out` int(11)
+		  `manager_add` int(11)
+		  `date_add` int(11)
+		  `manager_edit` int(11)
+		  `date_edit` int(11)
+	shopstorage_updates 	архів оновлень
+		`id` int(11) AUTO_INCREMENT,
+		  `storage` int(11)
+		  `file` int(11)
+		  `price_for_1` float UNSIGNED
+		  `currency` varchar(3)
+		  `inserted` int(11)
+		  `updated` int(11)
+		  `deleted` int(11)
+		  `manager` int(11)
+		  `date` int(11)
+
+	if options['markUpByUserTypes'] > 0
+	shopstorage_markup 	націнка
+		`id` int(11) AUTO_INCREMENT,
+		  `storage` int(11)
+		  `user_type` tinyint(2)
+		  `markup` int(11)
+
+Public links:
+	/index() - page_404
+	/__get_Search()				повертає об'єкт пошуку: return false
+	/__get_Invoices_to_Product()повертає наявність та пропозиції товару
+	/__get_Invoice()			вся інформація по пропозиції
+	/__set_Reserve()			Зарезервувати товар за номером Invoice
+	/__set_Book()				Списати товар за номером Invoice
+	/__get_storage_info()		Отримати інформацію про склад (назву, час доставки..)
+
+
+Versions:
+	1.0 	Основа сервісу
+	1.1		Розширене керування імпортом. Додано автонацінку. Покращено юзабіліті.
+			Уніфіковано імпорт з переведенням налаштувань у БД
+	1.2 	Тип користувача по замовчуванню через $_SESSION['option']->new_user_type. Видалено застаріле
+			Додано __get_storage_info()

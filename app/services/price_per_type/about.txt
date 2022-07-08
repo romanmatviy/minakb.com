@@ -1,0 +1,43 @@
+Service "Shop product price per user type 1.1"
+for WhiteLion 1.1
+
+Author: Ostap Matskiv
+Date 1.1   : 16.12.2019
+Date 1.0   : 11.06.2019
+
+Description: Маркетинговий модуль для shopshopcase i cart. Встановлює можливість давати декілька цін. Зміни ціни від типу/рівня користувача
+
+Options:
+	not use
+
+Path photos after uploading:
+	not use
+
+SEO not use
+
+Tables:
+	s_ppt
+		`id` int(11) AUTO_INCREMENT,
+	  	`shop_alias` int(11),
+		`user_type` int(11),
+		`change_price` char(1), // change price: + y.o * currency * markup; * coeffisient
+		`price` float // change price value
+
+	s_ppt_product
+		`id` int(11) AUTO_INCREMENT,
+		`product_alias` int(11),
+		`product_id` int(11),
+		`user_type` int(11),
+		`change_price` char(1),
+		`price` float
+
+Public links:
+	/index() - page_404
+	/__get_Search()				повертає об'єкт пошуку: return false
+	/__get_Product()			повертає інформацію по одному товару
+	/__get_Products()			повертає інформацію по списку товарів
+
+
+Versions:
+	1.0 	Основа сервісу
+	1.1 	Згідно правок по dinmark.com.ua

@@ -1,0 +1,80 @@
+Service "FAQ 1.2"
+for WhiteLion 1.1
+
+
+Author: Ostap Matskiv
+Date 1.2 : 29.11.2019
+Date 1.1 : 12.11.2018
+Date 1.0.2 : 12.11.2015
+Date 1.0.1 : 09.11.2015
+Date 1.0 : 28.10.2015
+Date 0 : 29.09.2015
+
+
+Description: Перелік типових питань-відповідей. Мультимовний.
+
+
+Options:
+	useGroups	(0, 1)		наявність категорій в яких можуть знаходитися питання
+
+
+SEO (name, title, keywords, description) for faq use wl_ntkd (content: id_question, content: -id_group)
+	name as question
+	text as answer
+
+
+Tables:
+	s_faq_questions				перелік питань
+		`id` int(11) AUTO_INCREMENT,
+		`wl_alias` int(11) NOT NULL,
+		`group` int(11)			id групи
+		`position` int(11)		позиція у списку
+		`active` tinyint(1),	поточний стан питання (0 - відключено, 1 - активний)
+		`author_add` int(11),	id автора
+		`date_add` int(11)		дата додачі (The Unix Epoch)
+		`author_edit` int(11),	id автора останнього редагування
+		`date_edit` int(11)		дата останнього редагування (The Unix Epoch)
+	s_faq_groups				групи питань
+		`id` int(11) AUTO_INCREMENT,
+		`wl_alias` int(11) NOT NULL,
+		`position` int(11)		позиція у списку
+		`active` tinyint(1),	поточний стан групи (0 - відключено, 1 - активний)
+		`author_add` int(11),	id автора
+		`date_add` int(11)		дата додачі (The Unix Epoch)
+		`author_edit` int(11),	id автора останнього редагування
+		`date_edit` int(11)		дата останнього редагування (The Unix Epoch)
+
+
+Public links:
+	/index
+	/__get_Search()				повертає об'єкт пошуку
+	/__get_Questions()			повертає список активних питань
+	/__get_Groups()				повертає список активних груп
+
+
+
+Private links (admin access):
+	/index
+	/all						перелік всіх питань
+	/add 						додати питання
+	/edit_question (privat)		редагувати питання (ініціалізує index())
+	/save_question			(обробка) додати/зберегти питання
+	/delete_question			(обробка) видалити питання
+	/change_question_position	(обробка) змінити порядок питань у групі
+	/groups 					перелік всіх груп
+	/add_group					додати групу
+	/edit_group	(privat)		редагувати групу (ініціалізує groups())
+	/save_group					(обробка) додати/зберегти групу
+	/delete_group				(обробка) видалити групу
+	/change_group_position		(обробка) змінити порядок груп
+	/__get_Search()				повертає об'єкт пошуку
+
+
+
+Versions:
+	1.0 	Розроблено сервіс FAQ із підтримкою груп.
+	1.0.1	До інсталяційного пакету додано group, order_alias.
+	1.0.2	Виправлено помилку із пошуком (дубляж назв класів)
+	1.1		Виправлено помилки, оптимізовано інтерфейс панелі керування
+			Додано __get_SiteMap_Links()
+	1.2		Додано multi_alias режим

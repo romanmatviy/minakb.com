@@ -1,0 +1,113 @@
+main  aside a,
+main #tabs ul li a {
+	display: block;
+    background: #eee;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 2px;
+    text-decoration: none;
+}
+main #tabs ul li.ui-tabs-active a,
+main #tabs ul li a:hover,
+main aside a.active,
+main aside a:hover { color: #fff; background: #9ece3c }
+main aside #photo-block { position: relative }
+main aside #photo-block #loading {
+	position: absolute;
+	width: 80px;
+	left: calc(50% - 40px);
+	top: calc(50% - 40px);
+	display: none
+}
+
+main #tabs ul.ui-tabs-nav { margin-bottom: 15px }
+main #tabs ul.ui-tabs-nav li { list-style: none; width: calc(50% - 1px) }
+main #tabs ul.ui-tabs-nav li a { margin-top: 0 }
+main table { width: 100% }
+main table tr th, main table tr td {
+	border-bottom: 1px solid #eee;
+	padding: 10px;
+}
+main table tr:last-child td { border: none }
+main #tabs table tr select, main #tabs table tr input:not([type="file"]) {
+	border: 1px solid #9ece3c; 
+	padding: 5px 10px; 
+	border-radius: 2px;
+	width: 100%;
+}
+main #tabs table tr i.pull-right { cursor: pointer }
+main #tabs .media { cursor: pointer; text-decoration: underline }
+
+
+main article h2 { font-size: 25px }
+main article h3 { font-size: 22px }
+main article h4 { font-size: 20px }
+/*
+@media screen and (max-width: 576px){
+	article .btn{
+		display: inline-block;
+		width: 100% !important;
+		text-align: center;
+		margin: 5px 0;
+		padding: 7px 10px;
+
+	}
+	main table.cart_list{
+		width: 900px;
+		overflow: scroll;
+		display: block;
+	}
+	main table.cart_list td{
+		background-color: rgba(100,100,100,0.05);
+		border-radius: 5px;
+	}
+}*/
+
+
+@media screen and (max-width: 800px) {
+	.mob_user_photo{
+		width: 50%;
+		margin-left: 20%;
+		padding: 5%;
+	}
+	h2{
+		padding: 40px 0 10px
+	}
+	table.cart_list thead {
+		display: none;
+	}
+	table.cart_list tr {
+		display: block;
+		margin-bottom: 1rem;
+		border-bottom: 2px solid #9ece3c;
+	}
+	table.cart_list td {
+		display: block;
+		text-align: right;
+	}
+	table.cart_list td:before {
+		content: attr(aria-label);
+		float: left;
+		font-weight: bold;
+	}
+}
+
+.btn {
+	white-space: nowrap;
+	line-height: 2.5;
+	background: #433d50;
+}
+.btn:hover { background: #302c3a; }
+
+
+
+
+.seller {
+	padding: 15px;
+	border: 1px solid #302c3a;
+	height: fit-content;
+}
+.seller ul { list-style-type: disc; }
+.seller ul li { margin-left: 15px; }

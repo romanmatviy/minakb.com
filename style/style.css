@@ -1,0 +1,24 @@
+html, body {
+	font-family: 'Open Sans', sans-serif;
+}
+header, footer {
+	padding: 15px;
+}
+header nav a {
+	padding: 5px 10px;
+}
+header nav a:hover {
+	text-decoration: underline;
+}
+main {
+	min-height: calc(100vh - 150px)
+}
+h1 {
+	font-size: 2em;
+}
+
+input.form-control, select.form-control, textarea.form-control {
+	padding: 5px 10px;
+	margin-bottom: 5px;
+	width: 100%;
+}

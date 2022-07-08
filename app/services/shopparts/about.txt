@@ -1,0 +1,175 @@
+Service "Shop Showcase 2.2"
+for WhiteLion 1.0
+
+Author: Ostap Matskiv
+Date 2.2   : 
+Date 2.1   : 16.12.2015
+Date 2.0   : 12.11.2015
+Date 1.3.1 : 20.10.2015
+Date 1.3   : 14.10.2015
+Date 1.2.7 : 01.10.2015
+Date 1.2.6 : 28.09.2015
+Date 1.2.5 : 24.09.2015
+Date 1.2.4 : 18.09.2015
+Date 1.2.3 : 03.09.2015
+Date 1.2.2 : 27.08.2015
+Date 1.2.1 : 23.07.2015
+Date 1.2   : 20.11.2014
+Date 1.1   : 15.10.2014
+Date 1.0   : 02.09.2014
+
+Description: Магазин-вітрина з підтримкою властифостей та фотогалереї (перелік товарів БЕЗ можливості їх замовити та оплатити). Мультимовний. Автовиправлення адрес (лінків) товарів.
+Options:
+	ProductUseArticle	(0, 1)		використовувати сторонній унікальний артикул товару
+	useGroups	(0, 1)		наявність категорій в яких можуть знаходитися товари
+	ProductMultiGroup	(0, 1)		один товар більше ніж в одній категорії
+	useAvailability		(0, 1)		використовувати наявність товару
+	folder				(text)		назва папки у IMG_PATH, куди будуть заливатися фото, створюватися альбоми
+	productOrder		(text)		порядок сортування товарів
+	groupOrder			(text)		порядок сортування груп
+
+Path photos after uploading:
+	IMG_PATH / folder / id_product / (*) photo_name . *
+	IMG_PATH / folder / groups / (*) photo_name . *
+
+SEO (name, title, keywords, description) for products use wl_ntkd (content: id_product, content: -id_group)
+Images for products use wl_images (content: id_product)
+
+Tables:
+	s_shopshowcase_products			перелік товарів
+		`id` int(11) AUTO_INCREMENT,
+		`wl_alias` int(11)	ід головного аліасу
+		`article` text,		сторонній унікальний ідентифікатор товару
+		`alias` text,		кінцева адреса товару (включно з ід товару)
+		`group` int(11)		ід групи товару
+		`price` float		ціна товару
+		`currency` int(11)	валюта товару
+		`availability` int(11)	доступність товару
+		`position` int(11)	позиція у списку
+		`photo` text,		назва головного фото (для списку)
+		`active` tinyint(1),поточний стан товару (0 - відключено, 1 - активний)
+		`author_add` int(11),	хто додав
+		`date_add` int(11)		дата додачі (The Unix Epoch)
+		`author_edit` int(11)	хто останній редагував
+		`date_edit` int(11)	дата останнього редагування (The Unix Epoch)
+	s_shopshowcase_options 	перелік опцій, що доступні для товарів. Присвоюються групам із успадкуванням
+		`id` int(11) AUTO_INCREMENT,
+		`wl_alias` int(11)	ід головного аліасу
+		`group` int(11),	ід батьківської групи
+		`alias` int(11),	адреса опції (для СЕО фільтра)
+		`position` text,	позиція у списку
+		`type` int(11)		тип опції згідно wl_input_types
+		`filter` tinyint(1)	чи є даний елемент опції і елементом фільтру (тільки для строго визначений елементів: radio, select..)
+		`active` tinyint(1)	поточний стан (0 - відключено, 1 - активний)
+	s_shopshowcase_product_options 	поточні дані опція товару - товар
+		`id` int(11) AUTO_INCREMENT,
+		`product` int(11),	ід товару
+		`option` int(11),	ід опціїї
+		`language` varchar(2),	мова, якщо є мультимовний
+		`value` text		значення
+	s_shopshowcase_options_name		дані пареметрів товару
+		`id` int(11),
+		`option` int(11),	ід опції або -ід властивості опції
+		`language` varchar(2),	мова, якщо є мультимовний
+		`name` text,		назва опції/параметру
+		`sufix` text,		суфікс (автоматично додається після тексту опції - розмірність величини)
+
+	if options['useGroups'] > 0
+	s_shopshowcase_groups 			перелік груп товарів
+		`id` int(11) AUTO_INCREMENT,
+		`wl_alias` int(11)	ід головного аліасу
+		`alias` text,		кінцева адреса групи
+		`parent` int(11)	батьківська група
+		`position` int(11)	позиція групи
+		`photo` int(11),	наявність фото: 0 - ні, ід - номер фото
+		`active` tinyint(1),поточний стан (0 - відключено, 1 - активний)
+		`author_add` int(11),	хто додав
+		`date_add` int(11)		дата додачі (The Unix Epoch)
+		`author_edit` int(11)	хто останній редагував
+		`date_edit` int(11)	дата останнього редагування (The Unix Epoch)
+
+	if options['ProductMultiGroup'] > 0
+	s_shopshowcase_product_group 	для МУЛЬТИТОВАРГРУПА. Один товар - декілька груп
+		`product` int(11)	ід товару
+		`group` int(11)		ід групи
+
+Public links:
+	/index() - main page, list of active groups or products sorted by `position`
+	/index()/../id - link - detal info about product
+	/__get_Search()				повертає об'єкт пошуку
+	/__get_Product()			повертає товар за id, артикулом, або власним ключем
+	/__get_Products()			повертає список активних товарів
+	/__get_Groups()				повертає список активних груп
+	/__get_Options_By_Group()	повертає список активних властивостей для групи
+
+
+
+Private links (admin access):
+	/index() - manage of product or group
+	/all - list of all products sorted by `position`
+	/add - form add product
+	/edit($id) (private) - form edit product by id product
+	/groups - list all groups
+	/add_group - form to add new group
+	/edit_group(id) (private) - form to edit group
+	/options - list of all options
+	/add_option - form to add option
+
+	/save - procedure to save or creating new product
+	/delete - procedure to delete product
+	/changeposition - procedure to change product position in list
+	/changeAvailability (ajax) - procedure to set new availability of product
+	/save_group - procedure to save or creating new group
+	/delete_group - procedure to delete group (+ with products)
+	/change_group_position - procedure to change group position in list
+	/savephoto (private) - function which save and make resize photo
+	/deleteProductsByGroup (private) - from DELETE_GROUP() to delete all products by group and subgroups
+	/save_option - procedure to save or creating new product option for group
+	/delete_option - procedure to delete product option
+	/change_option_position - procedure to change option position in list
+	/deleteOptionProperty (ajax) - delete option property
+
+
+Versions:
+	1.0 	Основу сервісу взято із сервісу library 1.0. Відносно оснтаннього внесено зміни: стаття -> товар, категорія -> група. Функціонал груп перероблено на деревовидну структуру без обмежень по вкладанні. Авто виправлення лінків товарів. Розроблено можливість задавати властивості товарів із ієрархією груп для кожної групи товарів.
+
+	1.1 	Додано можливість створювати елементи фільтра із опцій. При редагуванні товару додано можливість вибору сторінки переходу. Виправлено помилки.
+
+	1.2 	Додано фотогалерею. Редагувати продукт через таби. Додано admin_words. Додано дату останнього редагування. Виправлено помилки із паддінгацією, мультимовністю. Дороблено мультимовні властивості.
+
+	1.2.1	Виправлено _remap()
+
+	1.2.2	install_model додано alias_delete(), виправлено видалити сервіс
+
+	1.2.3	install_model додано options_admin = array(), sub_menu = array()
+
+	1.2.4	При педагуванні групи детально додано можливість редагувати додаткові поля через $_SESSION['admin_options']['groups:additional_fields']. Розділювач кома (",").
+
+	1.2.5	Додано індивідуальний "короткий опис" до груп та товарів
+
+	1.2.6	Таблицю зміни розмірів зображення s_shopshowcase_photo_size переведено на системну wl_images_sizes. Перекладено назви колонок у панелі керування, виправлено дрібні помилки відображення тексту у керуванні аліасом.
+
+	1.2.7	У режимі товар-мультигрупи додано відображення списку груп. Виправлено помилку задання порядку елментів при додачі властивості.
+
+	1.3		Переведено на WhiteLion 1.1. Панель керування переведено у файл admin.php
+
+	1.3.1	Виправлено адреси посилань у панелі керування згідно змін у Loader
+
+	2.0		Зроблено повний рефакторінг коду ShopShowCase 1.3.1. Внесено зміни згідно архітектури WhiteLion 1.0
+
+	2.1		До налаштувань сервісу додано idExplodeLink (символ) - розділювач між id та продовженням адреси статті ('-').
+			Додано адреси мініатюр зображень до товару детально згідно wl_images_sizes. Формат $product->(*prefix)_photo.
+			Додано адреси мініатюр зображень до списку груп згідно wl_images_sizes. Формат $group->(*prefix)_photo.
+			Додано адреси мініатюр зображень до групи детально згідно wl_images_sizes. Формат $group->(*prefix)_photo.
+			Додано $_SESSION['alias']->image для статті/групи детально згідно головного фото.
+
+	2.2		Змінено струкруту таблиць (всі магазини в одну таблицю по розділювачу wl_alias за принципом wl_ntkd)
+			Додано артикул товару (через властивість)
+			Оновлено роботу з адресацією лінка (додану роботу з артикулем)
+			Додано підтримку роботи з великою кількістю товарів (паддінгації, забрано інші товари у групі)
+			Додано хлібні крихти через $_SESSION['alias']->breadcrumbs
+			Виправлено помилки із групою детально (додано вигрузку підгрупи, формування лінка, фотографій)
+			Оновлено роботу з властивостями (підтримує успадкування, вказує кількість співпадінь, коректніша робота фільтру)
+			Додано вивід відео у тексті за номером відео {video-XXX}
+			Керування відео передано на системну верстку
+			З shop_model видалено застарівший параметр $_SESSION['products']->options, застарівші функції GroupLink(), getGroupParents()

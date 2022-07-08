@@ -1,0 +1,336 @@
+White Lion 1.1    16.12.2019
+	Додано файли wl_files
+	Додано/оновлено бібліотеки:
+		data 1.4.2
+		db 2.4.5 До getAliasImageSizes() додано кешування у сесії
+		images 1.3.1
+		facebook_feed 1.0
+		google_feed 1.0
+	Додано кешування __page_bofore_init
+	Доопрацьовано внутрішнє кешування в оперативну пам'ять, використовуючи $_SESSION['alias-cache']. Зокрема:
+		$_SESSION['alias-cache'][$_SESSION['alias']->id]->alias**
+		$_SESSION['alias-cache'][$_SESSION['alias']->id]->service**
+		$_SESSION['alias-cache'][$_SESSION['alias']->id]->options**
+		$_SESSION['alias-cache'][$_SESSION['alias']->id]->imageReSizes*
+		$_SESSION['alias-cache'][$_SESSION['alias']->id]->textWords*
+		$_SESSION['alias-cache'][$_SESSION['alias']->id]->ntkd_robot_1*
+		$_SESSION['alias-cache'][$_SESSION['alias']->id]->ntkd_robot__1*
+		$_SESSION['alias-cache'][$_SESSION['alias']->id]->ntkd_robot_0*
+		* - додано
+		** - доопрацьовано
+		з динамічним редагуванням (при зміні менеджером даних через панель керування, очищуються локальні дані у сесії)
+	До wl_ntkd додано get_ivafc - колонка, яка індикує наявність:
+		i - images
+		v - video
+		a - audio
+		f - files
+		c - comments*
+		* - реалізовано не до кінця.
+		з динамічним маркуванням даних через панель керування та дозбором даних в процесі експлуатації сайту.
+
+	shopshowcase 2.8.1	Кешування сесії даних сервісом уніфіковано до $_SESSION[$_SESSION['alias']->alias]
+			Додано кешування allGroups для shop_model
+
+20.12.2019
+	video 1.2.2 fix size()
+	wl. fix auth manager permissions
+
+31.12.2019
+	shopshowcase 2.9.2
+		Фільтр будується як для кінцевої групи, так і для батьківських груп
+		Додано __product_additionall_fields-info.php, __product_additionall_fields.php - налаштовувані додаткові поля товару
+		Додано кешування allGroups для shop_model
+		Додано керування (редагувати/проглянути/видалити) до списку товарів в панелі керування
+		Розширено очищення кешу при редагуванні групи/товару через панель керування
+
+08.01.2020
+	Shop Showcase 2.9.3
+		Скасовано 2.9.1 Кешування сесії даних сервісом до $_SESSION[$_SESSION['alias']->alias] з метою економії даних сесії
+		Перероблено кешування allGroups для shop_model в загальний кеш (оптимізацію кешу)
+		Панель керування. Перегляд товару: додано перегляд фото, додано файли. Редагувати товар: додано файли.
+		Додано __get_Group($id)
+
+09.01.2020
+	Google Recaptcha 1.1
+		add callback and expired_callback
+	save forms
+		Перевірка Google Recaptcha тільки для неавторизованих користувачів
+
+17.01.2020
+	WL. Manager can admin user profiles.
+		Менеджер отримує доступ (за дозволом 'profile') до користувачів сайту з можливістю вносити зміни, увійти як користувач. Враховуючи обмеження (менеджер керувати іншими менеджерами/адміністратором не може).
+	WL. 301 redirect for index.php (site.com/index.php => site.com)
+
+22.01.2020
+	compare v1.0
+
+23.01.2020
+	WL. Виправлено __page_before_init
+	WL. wl_language_model. Виправлено вибірку перекладів для варіативної ситуації (дані з різних alias на одній сторінці)
+		Виправлено дублювання даних, додано самоочистку.
+		Оптимізовано кешування з кешу сесії до файлового кешу.
+		Для reset, save, cart додано мультовність до фраз.
+
+29.01.2020
+	WL. Виправлено admin/wl_aliases/add_admin_option очищення кешу сесії
+	WL. Налаштування SEO.
+		Оптимізовано роботу: додано пагінацію, покращено зовнішній вигляд кнопок
+		Додано автоочистку дублів wl_sitemap
+		Додано пошук по назві
+	Shop Showcase 2.9.4
+		Виправлено роботу товарів на батьківських групах
+		Додано option:showProductsParentsPages
+		Виправлено очищення кешу при додачі підгруп
+
+07.02.2020
+	Shop Showcase 2.9.5	Виправлено:
+		обрізка артикулів в назвах товарів (додано за article_show)
+		getProducts/один товар = одна група/не працювало $noInclude
+		option:showProductsParentsPages=0/виправлено витягування товарів
+		save_price_format/ додано очищення файлового кешу
+
+	WL. Оптимізовано пошук (додано екранування спец. символів: заміна всіх не букв і цифр)
+
+20.02.2020
+	db 2.4.6 - до get('count') додано (виправлено) коректно роботу параметрів $debug, $get
+	db 2.5   - до makeWhere() додано keyValue & (&, &&, &&&, &&&&+) ['&' => 'p.old_price > p.price || p.promo > 0'] - дозволяє додати "складні" sql умови до запиту
+
+	Shop Showcase 2.9.6 - Додано __setProduct_sPrice()
+
+5.03.2020
+	WL. Admin. Add __dashboard_subview
+	Cart. Add __dashboard_subview
+	ShopShowcase 3.0 - Додано Акції, оновлено/розширено керування експортом (індивідуальне керування під різни канали вигрузки)
+	Currency 2.2 - Add __clear_cache(), admin ui optimize
+
+5.04.2020
+	WL. save. Форми. Додано можливість зберігати файли.
+
+23.04.2020
+	WL. admin_view. Додано вивід власного тайтлу для адмінки за наявності (до цього <title><?=$_SESSION['alias']->name?></title>)
+	WL. wl_photos. При заливці фото зразу створюється мініатюра admin
+	Shop Showcase 3.0.1
+		Розширено інформаційне вікно товару детально щодо аналогів та складів
+		Для аналогів виводяться основні властивості
+		Виправлено зберігання властивостей товару
+
+White Lion 1.2		10.05.2020
+	Всі оновлення WL від 01.2020 - 05.2020
+	Відкладена відправка листів:
+		save - додано можливість приймати файли. Оптимізовано до mail 2.2
+		mail 2.2 (10.05.2020) додано addToSchedule() - відкладену відправку листів
+		cron / mail - відправка листів за запитом/розкладом cron
+		$_SESSION['option']->sendEmailForce
+		$_SESSION['option']->sendEmailSaveHistory
+
+12.05.2020
+	Shop Showcase 3.1 - Додано групове редагування товарів:
+		multi_changeGroup() - змінити групу (тільки коли опція ProductMultiGroup == 0)
+		multi_editProducts() - редагувати доступність (active), наявність (availability)
+		multi_deleteProducts() - групове видалення товарів
+
+17.05.2020
+	signup: fix for mail 2.2
+	mail 2.2: add force mode
+	style: add svg mode
+	Cart 2.2:
+		Оновлено підтримку складів
+		Додано підтримку роботи з meta-даними (для СЕО)
+		Виправлено автентифікацію клієнта
+		Запис телефону клієнта в профіль при оформленні замовлення (якщо відсутні дані)
+		Безпечні дані у відповідь ajax (тільки те, що треба, без надлишку службових)
+		Адмін. Пошук/фільтрація замовлень за: датою і періодом, статусум, клієнтом, менеджером, оплатою
+
+30.05.2020
+	Shop Showcase 3.1.1
+		Виправлено додачу товару до подібних
+		Виправлено пагінацію (оптимізовано кешування), фільтрацію (відключено кешування)
+
+05.06.2020
+	google_translate_free @copyright 2018 Yuri Darwin
+	bing_translator
+	admin. wl_aliases: add alias => clear in wl_sitemap
+	Shop Showcase 3.1.2
+		Адмін. Додано similarProductsInvoices() - видача наявності аналогів у інфо-карточці товару за запитом
+		Адмін пошук. Якщо в результаті пошуку один товар - переспрямувати на інфо-карточку товару
+		Адмін пошук. Оновлено результуючу сторінку
+
+11.06.2020
+	wl_users. add color label for user status
+	Cart 2.3:
+		Доопрацьовано склади, оплату
+		Додано підтримку повернення
+		Оновлено статуси замовлення
+		Додано внесення оплати замовлення через адмін
+		Оновлено друк, візуальні правки
+	Balance 1.0: Основу сервісу взято з opt.timeparts.com.ua (Позитивний баланс)/ Суттєво доопрацьовано, зредаговано
+	Returns 1.0: Основу сервісу взято з opt.timeparts.com.ua/ Суттєво доопрацьовано, зредаговано
+	ShopStorage 1.2: Оптимізовано під Cart 2.3+
+		Тип користувача по замовчуванню через $_SESSION['option']->new_user_type. 
+		Видалено застаріле
+		Додано __get_storage_info()
+
+12.06.2020
+	db 2.6	ініціалізація першого технічного запиту до БД 'SET NAMES utf8', тільки перед першим реальним запитом. Мінімізація пустих запитів.
+            додано public $this->saveDBlog. оновлено showTime()
+            до insertRows() доопрацьовано default значення у keys
+
+White Lion 1.3	19.06.2020
+	Суттєво оновлено маршрутизацію (роботу з `wl_sitemap`) та файлову систему кешування:
+		WL.Router	додано skip_alias_init, доопрацьовано 404
+		WL.Loader	керування setContentRobot, виправлено page_404(), function_in_alias()
+ 		db 2.7 	оновлено sitemap_*() - зміни системної таблиці wl_sitemap:link_sha1
+                оновлено getAliasImageSizes(), sitemap_cache_clear() => html_cache_clear() - робота з файловим кешем
+                додано getHTMLCacheKey(), getCacheContentKey(), $this->version
+		facebook_feed, google_feed xml generator - fix for nonEnd groups
+		images, js, style, app/controllers/admin/wl_*, app/models/wl_* - оновлення файлового кешу та зміни під `wl_sitemap`
+
+		Currency 2.3	Підтримка файлового кешу для WhiteLion 1.3+
+		Shop Showcase 3.2 Оптимізовано роботу кешів для WhiteLion 1.3+, оновлено роботу з властивостями товару
+
+29.06.2020
+	Shop Showcase 3.2.1 useAvailability - використовуємо фактичну наявність товару, інакше список з `s_shopshowcase_availability`
+	Image 1.4 - додано підтримку svg
+
+White Lion 1.3		29.09.2020
+	Всі оновлення WL від 06.2020 - 09.2020
+	додано Authenticate:security_close
+	save forms. save user id
+	add save/test_mail
+	signup, subscribe use recaptcha
+	wl_files. add preview
+	optinize cache
+	data 1.4.4
+	db 2.8 add redis
+	admin ui, system fix
+
+15.10.2020
+	LiqPay 1.3 Додано підтримку часткової оплати. Розширено відповідь для адмінки (якщо декілька liqpay)
+	Image 1.4.1 - додано setName(), getName(). return upload/uploadArray()
+	Cart 2.4 	Додано віртуальні товари/послуги
+		Після оформлення замовлення /success
+		Сторінка оплати /pay , якщо оплата одна => на сервіс оплати (ліквідовано проміжну сторінку)
+		Додано __getById()
+		Якщо оплата була частковою, клієнт може доплатити
+
+21.10.2020
+	NovaPoshta.ua 1.2 - Виправлено autocomplete. minTotalMaxWeightAllowed => Мінімальна вантажопідйомність відділення (у кг)
+	admin/notify_view add $_SESSION['notify']->warning
+
+29.10.2020
+	Shop Showcase 3.2.2		виправлено/додано сортування товарів за назвою по замовчуванню (sort products by `name` ASC/DESC)
+		setProduct/sPrice виправлено формування ціни (заокруглення копійок)
+		__get_Products() додано параметр availability - тільки доступні товари
+
+11.11.2020
+	WL. Comments. Оновлено відгуки:
+		виправлено помилки безпеки
+		оптимізовано запити до бд в частині відповідей на відгук
+		зберігання даних менеджера до відгуку
+		задано оптимізовану мультимовну верстку (на базі bootstrap)
+	page_view.php fix init js
+	lightgallery.js | 1.4.1-beta.0 add to assets
+	Shop Showcase 3.2.3 	додано getMinMaxPrices()
+
+17.11.2020
+	WL. fix framework parse url /{$language}?
+	mail 2.2.1 (25.11.2020) змінено $this->to() - мультиемейл відправку
+
+28.11.200
+	WL. Comments. Додано сповіщення менеджеру на емейл, можливість редагувати дату та час створення відгуку.
+
+09.12.2020
+	db 2.8.1 - updateRow() values can set NULL, numeric format. select(.., .., .., clear = true) add default clear param
+
+14.12.2020
+	WL. Comments v2. Оновлено, виправлено додачу зображень, модерацію..
+	Image 1.4.2 (14.12.2020) - setExtension($ext = NULL) => $this->extension = false; *для коректної роботи uploadArray
+
+White Lion 1.4 			15.02.2021 // from lamure.lviv.ua
+	base/Controller: add get__wl_cooperation(), init__wl_cooperation()
+	loader/all views: add $this->init__wl_cooperation('__page_before_view');
+	contollers/admin/{$alias}.php class name: wl_aliases => wl_aliases_admin (can init by function_in_alias in admin mode)
+	framework. fix main url with last '?'
+	db 2.9 - makeWhere() підтримка FULLTEXT пошуку. Ключ ~
+	image 1.5 - fix Orientation when upload (read exif data). add rotare()
+	recaptcha 2.0 - support recaptcha v3
+	ymlgenerator, google_feed, facebook_feed fix availability property
+	login, signup use recaptcha (v3)
+	admin/wl_aliases_admin:save()+confirm() - update: покращено логування, додано перевірки безпеки даних
+	add reviews:: base on comments
+	оновлено загальний шаблон і стилі ws__main.css
+	assets/lightGallery, lightSlider, OwlCarousel2
+	+ small fixes
+
+	Shop Showcase 3.3 + 3.3.1
+		Публічний доступ [option]->userCanAdd (якщо користувач є автором товару):
+			додати, редагувати власні товари
+		Каталог товарів при $_GET['availability'] спершу товари з наявністю. Решту після
+		Адмін. Оновлено сторінку додачі товару:
+			можна додавати декілька фото, швидка галерея перегляду
+			можна задати основні властивості (загальні для магазину)
+			можна задати кількість од. товару (якщо useAvailability)
+		shop_model. Підтримка у GET[option-$] числових значень
+		Виправлено помилки при видаленні товару
+		Оновлено функцію пошуку
+		Оновлено searchHistory
+		name by FULLTEXT search
+		getProduct fix empty $option->main
+
+20.03.2021
+	cart 2.5:
+		додано конфіг шаблону use__profile_view
+		доопрацьовано $_SESSION['option']->usePassword. Якщо виключено => примусову авторизацію, автологінацію виключено.
+		додано неавторизований доступ до замовлення за ключем доступу ?key=*** (auth_id)
+		додано /buyProduct (купити "в один клік") - спрощений режим оформлення замовлення
+		додано /set__shippingToOrder() - клієнтська та адмін: можливість зредагувати інформацію про доставку поки замовлення $cart->action == 'new'
+		для неавторизованого покупця у /checkout приховано поля отримувача (автоматично з покупця)
+
+	wl_user_model/userExists() add auth_id
+
+25.03.2021
+	Shop Showcase 3.3.2	Додано експорт товарів /admin/export_products
+			Додано __reset_products_position (ручне автовиправлення порядковості товарів)
+			Виправлено акційні товари
+			Додано shop_model/updateProductsPrice
+			Виправлено роботу з відсутніми групами (головна сторінка)
+	Image 1.5.1  25.03.2021 support webp
+
+09.04.2021
+	Google Recaptcha 2.1 form_v3() support input:text or button:text
+
+21.04.2021
+	Recaptcha 2.2 check() if SERVER_NAME has localhost return true
+
+27.05.2021
+	White Lion 1.4* Update user files:
+		login, signup, subscribe, profile, wl_user_model
+	api/liqpay => test/liqpay
+	api/redis_test => test/redis_test
+	add test/smtp (from polycraft.ua)
+
+04.06.2021
+	system/loader profile_view fix $_SESSION['option']->uniqueDesign for service
+
+19.06.2021
+	data 1.4.5 latterUAtoEN() розширено символами ( ) *
+	додано showHidePassword до редагувати користувача та корзини (зміна ціни товару у замовленні)
+	Shop Showcase 3.3.3
+		Додано базовий імпорт цін
+		Ціноутворення через __setBaseProductPrice()
+		Виправлено подібні товари, додано групи подібності
+
+07.08.2021
+	data 1.4.6 get_link() add param skip_key
+
+10.08.2021
+	WL. Додано підтримку мови профілю для користувачів
+	WL. Додано шаблони листів на EN, RU
+	Shop Cart 2.6.1:
+		додано підтримку мови користувача:
+			при оформленні замовлення
+			з панелі керування лист сповіщення клієнту на мові його профілю
+		додано переклади шаблонів листів на EN, RU
+
+03.07.2022
+	WL. index.php add auto checking localhost in https mode

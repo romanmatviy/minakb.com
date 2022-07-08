@@ -1,0 +1,10 @@
+﻿Service "Returns for cart"
+for WhiteLion 1.1
+
+Author: Ostap Matskiv
+Date 1.0   : 11.06.2020
+
+Description: Повернення товарів для Cart 2.3+
+
+Versions:
+	1.0 	Основу сервісу взято з opt.timeparts.com.ua/ Суттєво доопрацьовано, зредаговано

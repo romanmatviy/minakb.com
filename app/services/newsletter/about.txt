@@ -1,0 +1,16 @@
+Service "NewSletter 1.0"
+for WhiteLion 1.1
+
+Author: Ostap Matskiv
+Date 1.0   : 16.12.2019
+
+Description: Сервіс розсилки. Використовує бібліотеку mail. Рекомендовано використовувати smtp
+Options:
+	sent_per_part 	(number)	email-ів надсилати за один захід розсилки
+
+Public links:
+	/index		page 404
+	/sendmail 	запуск розсилки по крону
+
+Versions:
+	1.0 	Створено для polycraft.ua, dinmark.com.ua
