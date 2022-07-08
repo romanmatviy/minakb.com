@@ -238,7 +238,7 @@ class ymlgenerator extends Controller {
             $mem = (string) $mem . ' Кб';
 
         $after = ($_SESSION['cache']) ? 'Cache активний' : 'Cache відключено';
-        echo '<hr><center>Час виконання: '.round($time, 5).' сек. Використанок памяті: '.$mem.'. Запитів до БД: '.$this->db->count_db_queries.'. '.$after.'</center>';
+        echo '<hr><center>Час виконання: '.round($time, 5).' сек. Використано памяті: '.$mem.'. Запитів до БД: '.$this->db->count_db_queries.'. '.$after.'</center>';
     }
 }
 ?>

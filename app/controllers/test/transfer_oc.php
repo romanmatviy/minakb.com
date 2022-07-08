@@ -113,7 +113,7 @@ class transfer_oc extends Controller
 		}
 		$keys = array('product', 'group', 'position', 'active');
 		$this->db->insertRows('s_shopshowcase_product_group', $keys, $s_shopshowcase_product_group);
-		// Час виконання: 0.14897 сек. Використанок памяті: 125.05469 Кб. Запитів до БД: 95. Cache відключено
+		// Час виконання: 0.14897 сек. Використано памяті: 125.05469 Кб. Запитів до БД: 95. Cache відключено
 	}
 
 	function products()
@@ -173,7 +173,7 @@ class transfer_oc extends Controller
 		$this->db->insertRows('wl_ntkd', $keys, $ntkd);
 		// print_r($s_shopshowcase_groups);
 		// exit;
-		// Час виконання: 1.77208 сек. Використанок памяті: 75.64844 Кб. Запитів до БД: 114. Cache відключено
+		// Час виконання: 1.77208 сек. Використано памяті: 75.64844 Кб. Запитів до БД: 114. Cache відключено
 	}
 	
 	function groups()
