@@ -2,7 +2,7 @@
     <a href="<?=SITE_URL?>" class="d-flex v-center">
         <img src="<?=SERVER_URL?>style/images/logo.jpg"
             style="height:30px" title="<?= SITE_NAME ?>">
-        <span><?= SITE_NAME ?></span>
+        <span><?= $this->text('Міністерство акумуляторів', 0) ?></span>
     </a>
     <nav class="menu">
         <a href="<?=SITE_URL?>"><?= $this->text('Головна', 0); ?></a>
@@ -27,3 +27,18 @@
         </div>
     </nav>
 </header>
+
+<div class="page-head content-top-margin">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-7">
+                <ol class="breadcrumb">
+                    <li><a href="<?= SITE_URL?>"><?=$this->text('Головна', 0)?></a>
+                    </li>
+                    <li class="active"><?=$_SESSION['alias']->name?>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
