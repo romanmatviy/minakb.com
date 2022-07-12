@@ -4,7 +4,7 @@
             style="height:30px" title="<?= SITE_NAME ?>">
         <span><?= SITE_NAME ?></span>
     </a>
-    <nav>
+    <nav class="menu">
         <a href="<?=SITE_URL?>"><?= $this->text('Головна', 0); ?></a>
         <a href="<?=SITE_URL?>about_us"><?= $this->text('Про нас', 0); ?></a>
         <a href="<?=SITE_URL?>contact"><?= $this->text('Контакти', 0); ?></a>
@@ -20,5 +20,10 @@
         <?php }
             //$this->load->function_in_alias('cart', '__show_minicart');
         ?>
+
+        <div class="header-langs">
+            <a href="<?=SITE_URL_UA?>"><?= $this->text('УКР', 0); ?></a> | <a
+                class="ml-0" href="<?=SITE_URL_EN?>">ENG</a>
+        </div>
     </nav>
 </header>

@@ -22,3 +22,9 @@ input.form-control, select.form-control, textarea.form-control {
 	margin-bottom: 5px;
 	width: 100%;
 }
+
+/* menu */
+.menu {
+	display: flex;
+	align-items: center;
+}
