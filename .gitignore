@@ -11,3 +11,4 @@ _install/
 *.gz
 robots.txt
 vendor/
+node_modules

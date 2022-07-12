@@ -1,0 +1,33 @@
+.footer {
+    background: linear-gradient(0deg, #6c9bcf 0%, rgba(108, 155, 207, 0.59) 120.65%);
+    position: relative;
+    padding: 0;
+
+    .container {
+        padding: 36px 15px 14px;
+    }
+
+    .logo {
+        margin: 0 auto;
+        max-width: 150px;
+        max-height: 150px;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: -50%;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+    }
+
+    &-content {
+
+        &__column {
+            max-width: 25%;
+            width: 100%;
+        }
+    }
+}

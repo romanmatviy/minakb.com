@@ -1,0 +1,2 @@
+npx mix
+npx mix watch
