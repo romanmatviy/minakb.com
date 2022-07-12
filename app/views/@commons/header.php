@@ -1,19 +1,23 @@
 <header class="container d-flex">
     <a href="<?=SITE_URL?>" class="d-flex v-center">
-        <img src="<?=SERVER_URL?>style/admin/images/whitelion-black.png" style="height:30px" title="White Lion CMS <?=WL_VERSION?>">
-        <span>White Lion CMS <?=WL_VERSION?></span>
+        <img src="<?=SERVER_URL?>style/images/logo.jpg"
+            style="height:30px" title="<?= SITE_NAME ?>">
+        <span><?= SITE_NAME ?></span>
     </a>
     <nav>
         <a href="<?=SITE_URL?>"><?= $this->text('Головна', 0); ?></a>
-        <?php if($this->userIs()) { ?>
-            <a href="<?=SITE_URL?>profile"><?= $this->text('Кабінет', 0); ?></a></li>
-            <?php if($this->userCan()) { ?>
-            <a href="<?=SITE_URL?>admin">ADMIN</a></li>
-            <?php } ?>
-            <a href="<?=SITE_URL?>logout"><?= $this->text('Вийти', 0); ?></a></li>
+        <a href="<?=SITE_URL?>about_us"><?= $this->text('Про нас', 0); ?></a>
+        <a href="<?=SITE_URL?>contact"><?= $this->text('Контакти', 0); ?></a>
+
+        <?php if ($this->userIs()) { ?>
+        <a href="<?=SITE_URL?>profile"><?= $this->text('Кабінет', 0); ?></a>
+        <?php if ($this->userCan()) { ?>
+        <a href="<?=SITE_URL?>admin"><?= $this->text('Адмін', 0); ?></a>
+        <?php } ?>
+        <a href="<?=SITE_URL?>logout"><?= $this->text('Вийти', 0); ?></a>
         <?php } else { ?>
-            <a href="<?=SITE_URL?>login"><?= $this->text('Увійти', 0); ?></a></li>
-        <?php } 
+        <a href="<?=SITE_URL?>login"><?= $this->text('Увійти', 0); ?></a>
+        <?php }
             //$this->load->function_in_alias('cart', '__show_minicart');
         ?>
     </nav>
