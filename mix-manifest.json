@@ -1,5 +1,9 @@
 {
-    "/main.js": "/main.js",
+    "/style/style.css": "/style/style.css",
+    "/style/ws__main.css": "/style/ws__main.css",
+    "/style/comments.css": "/style/comments.css",
+    "/style/profile.css": "/style/profile.css",
+    "/style/login.css": "/style/login.css",
     "/style/admin/animate.min.css": "/style/admin/animate.min.css",
     "/style/admin/images/ico-next-blue.png": "/style/admin/images/ico-next-blue.png",
     "/style/admin/images/ico-prev-blue.png": "/style/admin/images/ico-prev-blue.png",
