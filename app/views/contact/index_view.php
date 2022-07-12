@@ -71,7 +71,7 @@
 	</div>
 
 	<div class="col-md-6 mb-3">
-		<form action="<?=SERVER_URL?>feedback" method="POST"
+		<form action="<?=SERVER_URL?>save/feedback" method="POST"
 			name="message" class="inputs-border mt20">
 			<div class="form-group">
 				<input class="form-control" type="text"
@@ -79,7 +79,9 @@
 					name="name">
 			</div>
 			<div class="form-group">
-				<input class="form-control" type="text" placeholder="Email" name="email">
+				<input class="form-control" type="text"
+					placeholder="<?=$this->text('Email')?>"
+					name="email">
 			</div>
 			<div class="form-group">
 				<textarea class="form-control h160" name="message"
