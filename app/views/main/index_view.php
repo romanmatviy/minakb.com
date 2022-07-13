@@ -1,9 +1,7 @@
 <section class="section category-grid second-style">
 	<div class="container">
 		<div class="row">
-			999
-
-
+			home
 			<div class="col-md-6">
 				<div class="abouttext pb30">
 					<h1 class="headblog"><?=$_SESSION['alias']->list?>

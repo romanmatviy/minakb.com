@@ -65,6 +65,10 @@ textarea.form-control {
   color: #777;
 }
 
+.header {
+  background: linear-gradient(26.38deg, #D9D9D9 15.74%, rgba(217, 217, 217, 0) 80.8%);
+}
+
 .footer {
   background: linear-gradient(0deg, #6c9bcf 0%, rgba(108, 155, 207, 0.59) 120.65%);
   position: relative;

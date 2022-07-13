@@ -48,7 +48,7 @@ error_reporting(E_ALL);
 
 //Після інсталяції НЕ ЗМІНЮВАТИ!
 define('WL_VERSION', '1.4');
-define('SITE_EMAIL', 'info@ministerstvo.localhost'); // Від даної пошти сайт відправляє листи
+define('SITE_EMAIL', 'info@minakb.localhost'); // Від даної пошти сайт відправляє листи
 define('SYS_PASSWORD', 'f5b53bb61917'); // Сіль для кешування критичних даних (паролі)
 $useWWW = false; // Автовиправлення ОСНОВНОЇ адреси (не мультомовної якщо використовується піддомен)
 $multilanguage_type = 'main domain'; // Якщо false то сайт НЕ мультимовний! може бути: false, "*.domain.com.ua" (адреса по головному домену, існування піддоменів мов на роботу не впливає), 'main domain' (мультимовність site.com/en/link..)

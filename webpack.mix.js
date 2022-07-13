@@ -1,12 +1,18 @@
 let mix = require('laravel-mix');
+let dev_folder = 'dev';
+let prod_folder = 'style';
 
 mix
-.copyDirectory('style/scss/admin', 'style/admin')
-.copy('style/scss/fonts/*.*', 'style/fonts')
-.copy('style/scss/images/*.*', 'style/images')
+.copyDirectory(dev_folder +'/scss/admin', prod_folder+'/admin')
+.copy(dev_folder +'/scss/fonts/*.*', prod_folder+'/fonts')
+.copy(dev_folder +'/scss/images/*.*', prod_folder+'/images')
 
-.sass('style/scss/login.scss', 'style')
-.sass('style/scss/profile.scss', 'style')
-.sass('style/scss/comments.scss', 'style')
-.sass('style/scss/ws__main.scss', 'style')
-.sass('style/scss/style.scss', 'style').browserSync('http://ministerstvo.localhost/');
+.js(dev_folder+'/js/*.js', 'js')
+// .js(dev_folder+'/js/user.js', 'js')
+
+.sass(dev_folder +'/scss/login.scss', prod_folder)
+.sass(dev_folder +'/scss/profile.scss', prod_folder)
+.sass(dev_folder +'/scss/comments.scss', prod_folder)
+.sass(dev_folder +'/scss/ws__main.scss', prod_folder)
+.sass(dev_folder +'/scss/style.scss', prod_folder)
+.browserSync('http://minakb.localhost/');

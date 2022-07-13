@@ -9,7 +9,6 @@ if (sw($_SERVER['REQUEST_URI'], 'partners')) {
 }
 
 ?>
-
 <section class="section category-grid second-style"
 	id="<?= $page ? $page : 'page' ?>">
 	<div class="container">
