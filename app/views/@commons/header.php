@@ -1,8 +1,11 @@
+<link rel="stylesheet" type="text/css"
+    href="<?=SERVER_URL . 'assets/bootstrap/css/bootstrap.min.css'?>">
+
 <header class="header">
     <div class="container d-flex">
-        <a href="<?=SITE_URL?>" class="d-flex v-center">
-            <img src="<?=SERVER_URL?>style/images/logo.jpg"
-                style="height:30px" title="<?= SITE_NAME ?>">
+        <a href="<?=SITE_URL?>" class="d-flex v-center logo">
+            <img src="<?=SERVER_URL?>style/images/logo.svg"
+                width="120" height="120" title="<?= SITE_NAME ?>">
             <span><?= $this->text('Міністерство акумуляторів', 0) ?>
                 <br>
                 minakb.com.ua
@@ -23,6 +26,9 @@
 
             <a href="<?=SITE_URL?>our_departaments"><?= $this->text('Наші відділення', 0); ?></a>
             <a href="<?=SITE_URL?>partners"><?= $this->text('Стати партнером', 0); ?></a>
+            <a href="<?=SITE_URL?>discovery_branch"><?= $this->text('Відкриття
+філіалу 2023', 0); ?>
+            </a>
 
             <?php if ($this->userIs()) { ?>
             <a href="<?=SITE_URL?>profile"><?= $this->text('Кабінет', 0); ?></a>

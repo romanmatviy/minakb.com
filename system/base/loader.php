@@ -308,7 +308,7 @@ class Loader
      */
     public function smodel($model)
     {
-        if ($_SESSION['service']->name) {
+        if (isset($_SESSION['service']->name)) {
             if (isset($this->$model) && is_object($this->$model)) {
                 return true;
             }

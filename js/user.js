@@ -5,7 +5,9 @@
 /*!************************!*\
   !*** ./dev/js/user.js ***!
   \************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+var tabs = __webpack_require__(/*! tabs */ "./node_modules/tabs/index.js");
 
 $(function () {
   $("#tabs").tabs();
@@ -158,6 +160,70 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
+
+/***/ }),
+
+/***/ "./node_modules/tabs/index.js":
+/*!************************************!*\
+  !*** ./node_modules/tabs/index.js ***!
+  \************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;! function(name, definition) {
+  if ( true && module.exports) module.exports = definition();
+  else if (true) !(__WEBPACK_AMD_DEFINE_FACTORY__ = (definition),
+		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+		(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+		__WEBPACK_AMD_DEFINE_FACTORY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  else {}
+}('tabs', function() {
+
+  return function tabs(container) {
+    var tabs = container.querySelectorAll('.tab');
+    var panes = container.querySelectorAll('.tab-pane');
+
+    each(tabs, function(i, tab) {
+      tab.addEventListener('click', function(e) {
+        activate(tabs, i);
+        activate(panes, i);
+      });
+    })
+
+    function activate(tabs, index) {
+      each(tabs, function(i, tab) {
+        if (i != index) {
+          removeClass(tab, 'active')
+        } else {
+          addClass(tab, 'active')
+        }
+      });
+    }
+  }
+
+  function each(elements, fn) {
+    for (var i = elements.length - 1; i >= 0; i--) {
+      fn(i, elements[i]);
+    }
+  }
+
+  function hasClass(el, cls) {
+    return el.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+  }
+
+  function addClass(el, cls) {
+    if (!hasClass(el, cls)) {
+      el.className += " " + cls;
+    }
+  }
+
+  function removeClass(el, cls) {
+    if (hasClass(el, cls)) {
+      var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+      el.className = el.className.replace(reg, '');
+    }
+  }
+});
 
 /***/ })
 

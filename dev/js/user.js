@@ -1,5 +1,5 @@
 $(function () {
-    $( "#tabs" ).tabs();
+    $("#tabs").tabs();
 
     $('#fileupload').fileupload({
         url: SERVER_URL+"profile/upload_avatar",
