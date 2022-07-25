@@ -13,6 +13,12 @@ mix
 .autoload({
     jquery: ['$', 'window.jQuery']
  })
+
+ .js(dev_folder+'/js/likes/*.js', 'js/likes')
+.autoload({
+    jquery: ['$', 'window.jQuery']
+ })
+
 // .js(dev_folder+'/js/user.js', 'js')
 
 .sass(dev_folder +'/scss/login.scss', prod_folder)

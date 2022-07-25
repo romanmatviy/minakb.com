@@ -13,6 +13,9 @@ $('form .filter label').click(function () {
     }
 })
 $('form .filter h6, form .filter i.angle').click(function () {
+
+    $(this).parent().find('.options').toggleClass('hide');
+
 	var i = $(this).parent().find('i.angle');
     if(i.hasClass('fa-angle-down'))
     {

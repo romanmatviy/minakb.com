@@ -1,120 +1,207 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./dev/js/catalog.js":
-/*!***************************!*\
-  !*** ./dev/js/catalog.js ***!
-  \***************************/
+/***/ "./dev/js/likes/likes.js":
+/*!*******************************!*\
+  !*** ./dev/js/likes/likes.js ***!
+  \*******************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 /* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-$('form .filter label').click(function () {
-  $('form .filter .options label button').removeClass('show');
-  $(this).find('button').addClass('show');
-
-  if ($(this).find('input').is(':checked')) {
-    $(this).addClass('active');
-    $(this).find('i.fa-square').addClass('fa-check-square').removeClass('fa-square');
-  } else {
-    $(this).removeClass('active');
-    $(this).find('i.fa-check-square').removeClass('fa-check-square').addClass('fa-square');
-  }
-});
-$('form .filter h6, form .filter i.angle').click(function () {
-  $(this).parent().find('.options').toggleClass('hide');
-  var i = $(this).parent().find('i.angle');
-
-  if (i.hasClass('fa-angle-down')) {
-    i.removeClass('fa-angle-down').addClass('fa-angle-up');
-    $(this).parent().find('.options').slideUp();
-  } else {
-    i.addClass('fa-angle-down').removeClass('fa-angle-up');
-    $(this).parent().find('.options').slideDown();
-  }
-});
-$('form button[type="reset"]').click(function () {
-  event.preventDefault();
-  $('form .filter .options label button').removeClass('show');
-  $(this).closest('form').find('label').removeClass('active');
-  $(this).closest('form').find('label i.fa-check-square').removeClass('fa-check-square').addClass('fa-square');
-  $(this).closest('form').find('input').attr('checked', false);
-  $(this).closest('form').find('input[type=search]').val(''); // $(this).closest('form').find('.options').addClass('hide');
-
-  $(this).closest('form').find('.filter > i').removeClass('fa-angle-down').addClass('fa-angle-up');
-  $("html, body").animate({
-    scrollTop: 0
-  }, "slow");
-});
-$('form .filter .options .clear + .more').click(function () {
-  var i = $(this).find('i.fas');
-
-  if (i.hasClass('fa-angle-down')) {
-    i.removeClass('fa-angle-down').addClass('fa-angle-up');
-    $(this).parent().find('.more.hide').slideDown();
-    $(this).find('.close').removeClass('hide');
-    $(this).find('.open').addClass('hide');
-  } else {
-    i.addClass('fa-angle-down').removeClass('fa-angle-up');
-    $(this).parent().find('.more.hide').slideUp();
-    $(this).find('.close').addClass('hide');
-    $(this).find('.open').removeClass('hide');
-  }
-});
-$('.fa-sliders-h').click(function () {
-  $('aside').removeClass('m-hide').toggle(540);
-});
-
-/***/ }),
-
-/***/ "./dev/js/user.js":
-/*!************************!*\
-  !*** ./dev/js/user.js ***!
-  \************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-/* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-$(function () {
-  $("#tabs").tabs();
-  $('#fileupload').fileupload({
-    url: SERVER_URL + "profile/upload_avatar",
-    autoUpload: true,
-    acceptFileTypes: /(\.|\/)(jpe?g|png)$/i,
-    start: function start() {
-      $("#photo-block #loading").show();
+function setLike() {
+  $.ajax({
+    url: LIKE_URL + '/setlike',
+    type: 'POST',
+    data: {
+      alias: LIKE_alias,
+      content: LIKE_content,
+      ajax: true
     },
-    complete: function complete() {
-      $("#photo-block #loading").hide();
+    success: function success(res) {
+      if (res) {
+        if (false) {} else {
+          if (res.setLike) {
+            $('#like-set-ok').slideDown();
+            $('#like-set-cancel').slideUp();
+            pageLikesFavicon.style.color = 'red';
+            $('#like_set_success').slideDown();
+          } else if (res.cancel) {
+            $('#like_set_success').slideUp();
+            $('#like_confirm').slideDown();
+          }
+
+          pageLikesCount.innerText = res.count;
+        }
+      } else alert('Error user like!');
     }
   });
-});
-
-function show_image(file) {
-  var files = file.files;
-  var file = files[0];
-  photo.file = file;
-  var reader = new FileReader();
-
-  reader.onload = function (aImg) {
-    return function (e) {
-      aImg.src = e.target.result;
-    };
-  }(photo);
-
-  reader.readAsDataURL(file);
 }
 
-$('main #tabs table tr i.right').click(function () {
-  var e = $(this);
-  var text = this.parentElement.innerText;
-  required = e.data('required');
-  e.parent().empty().append($('<input/>', {
-    name: e.data('name'),
-    type: 'text',
-    value: text,
-    required: required
-  }));
-  $('input[name=phone]').mask('+38 (000) 000-00-00');
-  $("main #tabs #main button.hide").removeClass('hide');
+function setCancel() {
+  $.ajax({
+    url: LIKE_URL + '/cancellike',
+    type: 'POST',
+    data: {
+      alias: LIKE_alias,
+      content: LIKE_content,
+      ajax: true
+    },
+    success: function success(res) {
+      if (res) {
+        if (res == 'no login') {
+          $('#like_no_login').slideDown();
+        } else {
+          if (res.cancelLike) {
+            $('#like_confirm').slideUp();
+            $('#like-set-ok').slideUp();
+            $('#like-set-cancel').slideDown();
+            $('#like_set_success').slideDown();
+            pageLikesFavicon.style.color = 'gray';
+          }
+
+          pageLikesCount.innerText = res.count;
+        }
+      } else alert('Error user like!');
+    }
+  });
+}
+
+function likeSignUp() {
+  $('#like-ajax-error').slideUp();
+  var ajax_error = '';
+  var name = $('#like-name').val();
+  name = name.trim();
+  if (name == '') ajax_error = LIKE_ERROR_empty_name;
+  var email = $('#like-email-signup').val();
+  email = email.trim();
+
+  if (email == '') {
+    if (ajax_error != '') ajax_error += '<br>';
+    ajax_error += LIKE_ERROR_empty_email;
+  }
+
+  if (ajax_error != '') {
+    $('#like-ajax-error p').html(ajax_error);
+    $('#like-ajax-error').slideDown();
+  }
+
+  if (name != '' && email != '' && LIKE_alias > 0 && LIKE_content > 0) {
+    $.ajax({
+      url: LIKE_URL + '/signup',
+      type: 'POST',
+      data: {
+        name: name,
+        email: email,
+        alias: LIKE_alias,
+        content: LIKE_content,
+        ajax: true
+      },
+      success: function success(res) {
+        if (res) {
+          if (res.result) {
+            $('#like_no_login').slideUp();
+            $('#like_set_success').slideDown();
+            $('#like_success_signup').slideDown();
+
+            if (res.setLike) {
+              $('#like-set-ok').slideDown();
+              $('#like-set-cancel').slideUp();
+              pageLikesFavicon.style.color = 'red';
+            } else if (res.cancel) {
+              $('#like_set_success').slideUp();
+              $('#like_confirm').slideDown();
+            } else {
+              $('#like-set-ok').slideUp();
+              $('#like-set-cancel').slideDown();
+              pageLikesFavicon.style.color = 'gray';
+            }
+
+            pageLikesCount.innerText = res.count;
+          } else {
+            $('#like-ajax-error p').html(res.message);
+            $('#like-ajax-error').slideDown();
+          }
+        } else alert('Error user like!');
+      }
+    });
+  }
+
+  return false;
+}
+
+function likeLogin() {
+  $('#like-ajax-error').slideUp();
+  var ajax_error = '';
+  var emailtel = $('#like-email-login').val();
+  emailtel = emailtel.trim();
+  if (emailtel == '') ajax_error = LIKE_ERROR_empty_emailtel;
+  var password = $('#like-password').val();
+  password = password.trim();
+
+  if (password == '') {
+    if (ajax_error != '') ajax_error += '<br>';
+    ajax_error += LIKE_ERROR_empty_password;
+  }
+
+  if (ajax_error != '') {
+    $('#like-ajax-error p').html(ajax_error);
+    $('#like-ajax-error').slideDown();
+  }
+
+  if (emailtel != '' && password != '' && LIKE_alias > 0 && LIKE_content > 0) {
+    $.ajax({
+      url: LIKE_URL + '/login',
+      type: 'POST',
+      data: {
+        email: emailtel,
+        password: password,
+        alias: LIKE_alias,
+        content: LIKE_content,
+        ajax: true
+      },
+      success: function success(res) {
+        if (res) {
+          if (res.result) {
+            $('#like_no_login').slideUp();
+
+            if (res.setLike) {
+              $('#like-set-ok').slideDown();
+              $('#like-set-cancel').slideUp();
+              pageLikesFavicon.style.color = 'red';
+              $('#like_set_success').slideDown();
+            } else if (res.cancel) {
+              $('#like_confirm').slideDown();
+            } else {
+              $('#like-set-ok').slideUp();
+              $('#like-set-cancel').slideDown();
+              pageLikesFavicon.style.color = 'gray';
+            }
+
+            pageLikesCount.innerText = res.count;
+          } else {
+            $('#like-ajax-error p').html(res.message);
+            $('#like-ajax-error').slideDown();
+          }
+        } else alert('Error user like!');
+      }
+    });
+  }
+
+  return false;
+}
+
+$('#like_set_success .closeSuccess').click(function () {
+  $('#like_set_success').slideUp();
+});
+
+jQuery.fn.centerLike = function () {
+  this.css("top", Math.max(0, ($(window).height() - $(this).outerHeight()) / 2) + "px");
+  this.css("left", Math.max(0, ($(window).width() - $(this).outerWidth()) / 2) + "px");
+  return this;
+};
+
+$(function () {
+  $('#like_set_success, #like_no_login, #like_confirm').centerLike();
 });
 
 function facebookSignUp() {
@@ -126,7 +213,7 @@ function facebookSignUp() {
         if (response.email && accessToken) {
           $('#authAlert').addClass('collapse');
           $.ajax({
-            url: SITE_URL + 'profile/facebook',
+            url: SITE_URL + 'signup/facebook',
             type: 'POST',
             data: {
               accessToken: accessToken,
@@ -137,27 +224,27 @@ function facebookSignUp() {
             },
             success: function success(res) {
               if (res['result'] == true) {
-                location.reload();
+                $('#like_no_login').slideUp();
+                setLike();
               } else {
-                $('#authAlert').removeClass('collapse');
-                $("#authAlertText").text(res['message']);
+                $('#like-ajax-error p').html(res.message);
+                $('#like-ajax-error').slideDown();
               }
             }
           });
         } else {
           $("div#divLoading").removeClass('show');
-          $("#clientError").text('Для авторизації потрібен e-mail');
-          setTimeout(function () {
-            $("#clientError").text('');
-          }, 5000);
+          $('#like-ajax-error p').html('Для авторизації потрібен e-mail');
+          $('#like-ajax-error').slideDown();
           FB.api("/me/permissions", "DELETE");
         }
       });
-    } else $("div#divLoading").removeClass('show');
+    } else {
+      $("div#divLoading").removeClass('show');
+    }
   }, {
     scope: 'email'
   });
-  return false;
 }
 
 /***/ }),
@@ -11205,7 +11292,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"/js/catalog": 0,
+/******/ 			"/js/likes": 0,
 /******/ 			"style/style": 0,
 /******/ 			"style/ws__main": 0,
 /******/ 			"style/comments": 0,
@@ -11260,8 +11347,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["style/style","style/ws__main","style/comments","style/profile","style/login"], () => (__webpack_require__("./dev/js/catalog.js")))
-/******/ 	__webpack_require__.O(undefined, ["style/style","style/ws__main","style/comments","style/profile","style/login"], () => (__webpack_require__("./dev/js/user.js")))
+/******/ 	__webpack_require__.O(undefined, ["style/style","style/ws__main","style/comments","style/profile","style/login"], () => (__webpack_require__("./dev/js/likes/likes.js")))
 /******/ 	__webpack_require__.O(undefined, ["style/style","style/ws__main","style/comments","style/profile","style/login"], () => (__webpack_require__("./dev/scss/login.scss")))
 /******/ 	__webpack_require__.O(undefined, ["style/style","style/ws__main","style/comments","style/profile","style/login"], () => (__webpack_require__("./dev/scss/profile.scss")))
 /******/ 	__webpack_require__.O(undefined, ["style/style","style/ws__main","style/comments","style/profile","style/login"], () => (__webpack_require__("./dev/scss/comments.scss")))

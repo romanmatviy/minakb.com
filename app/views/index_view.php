@@ -35,6 +35,16 @@
 			ЗА МАРКОЮ АВТО
 			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal3">ЗНАЙТИ</button>
 		</div>
+
+		<div class="search-item col-md-4">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal4">Гарантія якості обслугову...<br>На сайті надана інформація...</button>
+		</div>
+		<div class="search-item col-md-4">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal4">Прийом старих АКБ<br>Пропонуємо обміняти свій старий...</button>
+		</div>
+		<div class="search-item col-md-4">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal4">Відкриття  нового відділення 2023</button>
+		</div>
 	</div>
 </div>
 
@@ -43,7 +53,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Обери категорію</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -84,13 +94,126 @@
 			</div>
 			<div class="modal-body">
 				ПОШУК АКУМУЛЯТОРІВ ЗА ПАРАМЕТРАМИ
+
+				<?php
+                $filters = $this->load->function_in_alias('shop', '__get_OptionsToGroup'); ?>
+				<form>
+					<div class="filter">
+						<h3><?= $this->text('Акумулятори'); ?>
+						</h3>
+						<h6><?= $this->text('Назва товару'); ?>
+						</h6>
+						<input type="search" name="name"
+							value="<?=$this->data->get('name')?>"
+							placeholder="<?= $this->text('Акумулятор'); ?>">
+					</div>
+
+					<?php
+
+        // $this->load->js("js/{$_SESSION['alias']->alias}/catalog.js");
+        $this->load->js('js/catalog.js');
+
+    $open = true; // []; // $filter->ids ?? true => all filters
+    $type_2 = []; // $filter->ids
+    $type_3 = []; // $filter->ids
+    $positions = [];
+
+    foreach ($filters as $filter) {
+        $positions[] = $filter->position;
+    }
+    array_multisort($positions, $filters);
+
+    foreach ($filters as $filter) {
+        $for_sort = [];
+        // foreach ($filter->values as $value) {
+        //     $this->load->model('shop_model');
+        //     $for_sort[] = $this->shop_model->tofloat($value->name);
+        // }
+        // array_multisort($for_sort, SORT_ASC, $filter->values);
+        // unset($for_sort);
+
+        if (!empty($filter->values)) {
+            $class_i = (is_bool($open) && $open || is_array($open) && in_array($filter->id, $open)) ? 'down' : 'up';
+            if (count($_GET) > 1) {
+                $class_i = 'up';
+            }
+            if (isset($_GET[$filter->alias])) {
+                $class_i = 'down';
+            }
+            $class_size = '';
+            if (in_array($filter->id, $type_2)) {
+                $class_size = 'two';
+            }
+            if (in_array($filter->id, $type_3)) {
+                $class_size = 'three';
+            }
+            $count = count($filter->values);
+            $i = 0; ?>
+					<div class="filter">
+						<i
+							class="fas fa-angle-<?=$class_i?> pull-right angle"></i>
+						<h6><?=$filter->name?>
+						</h6>
+						<div
+							class="options <?=$class_size?> <?=($class_i == 'down') ? '' : 'hide'?>">
+							<?php foreach ($filter->values as $value) {
+                $checked = '';
+                if (isset($_GET[$filter->alias])
+                                 && (is_array($_GET[$filter->alias]) && in_array($value->id, $_GET[$filter->alias]) || is_numeric($_GET[$filter->alias]) && $_GET[$filter->alias] == $value->id)) {
+                    $checked = 'checked';
+                }
+                if ($i++ > 19 && empty($_GET[$filter->alias])) {
+                    echo '<div class="more hide">';
+                } ?>
+							<label <?=($checked) ? 'class="active"' : ''?>>
+								<input type="checkbox"
+									name="<?=$filter->alias?>[]"
+									value="<?=$value->id?>" <?=$checked?> >
+								<i
+									class="far fa-<?=($checked) ? 'check-square' : 'square'?>"></i>
+								<?php if (!empty($value->photo)) {
+                    echo '<img src="' . $value->photo . '" alt="' . $value->name . '" title="' . $value->name . '" >';
+                    if (!in_array($filter->id, $type_2) && !in_array($filter->id, $type_3)) {
+                        echo $value->name;
+                    }
+                } else {
+                    echo $value->name;
+                } ?>
+								<!-- <button><i class="fas fa-search"></i> <?=$this->text('Фільтрувати')?></button>
+								-->
+							</label>
+							<br>
+							<?php if ($i > 20 && empty($_GET[$filter->alias])) {
+                    echo '</div>';
+                }
+            } ?>
+							<div class="clear"></div>
+							<?php if ($count > 20 && empty($_GET[$filter->alias])) { ?>
+							<div class="more">
+								<i class="fas fa-angle-down"></i>
+								<span class="open"><?=$this->text('Ще') . ' ' . ($count - 20)?></span>
+								<span class="close hide"><?=$this->text('Згорнути') . ' ' . ($count - 20)?></span>
+							</div>
+							<?php } ?>
+						</div>
+					</div>
+					<?php
+        }
+    } ?>
+					<div class="d-flex wrap actions">
+						<button><i class="fas fa-search"></i> <?=$this->text('Фільтрувати')?></button>
+						<button type="reset"><i class="fas fa-broom"></i> <?=$this->text('Очистити')?></button>
+					</div>
+				</form>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Search</button>
-			</div>
+
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary">Search</button>
 		</div>
 	</div>
+</div>
 </div>
 
 <!-- ПОШУК АКУМУЛЯТОРІВ ЗА МАРКОЮ АВТО -->
@@ -114,6 +237,33 @@
 	</div>
 </div>
 
+<!-- Гарантія якості -->
+<div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Захищаємо інтереси покупця під час і після покупки</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				На сайті надана інформація тільки по реальних складах
+				з реальним статусом наявності.
+				У разі неналежного обслуговування зв’яжіться з нами:
+
+				+38 097 123 44 55  +38 063 450 66 99
+				з 09.00 по 18.00
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<!-- <button type="button" class="btn btn-primary">Search</button> -->
+			</div>
+		</div>
+	</div>
+</div>
+
+
 
 
 <!-- shop -->
@@ -128,7 +278,7 @@ if ($products) {
 		<div class="filter-wrapper col-md-3">
 			<form>
 				<div class="filter">
-					<h3><?= $this->text('Акумулятори'); ?>
+					<h3><?= $this->text('Фільтр'); ?>
 					</h3>
 					<h6><?= $this->text('Назва товару'); ?>
 					</h6>
@@ -264,6 +414,24 @@ if ($products) {
 								</svg></span></button></div>
 				</div>
 				<div class="product-card__indicators"></div>
+
+				<div class="form-group">
+					<div class="row">
+						<label>
+							<?=$this->text('В обрані', 0)?>
+							<?php
+							$likes = [];
+							$likes['content'] = $product->id;
+							$likes['name'] = $_SESSION['alias']->name;
+							$likes['link'] = $_SESSION['alias']->link;
+							$likes['image'] = (isset($_SESSION['alias']->images[0])) ? $_SESSION['alias']->images[0] : false;
+							$likes['additionall'] = "<p>{$product->price} грн</p>";
+							$this->load->function_in_alias('likes', '__show_Like_Btn', $likes);
+							?>
+						</label>
+					</div>
+				</div>
+
 			</div>
 		</div>
 		<?php
